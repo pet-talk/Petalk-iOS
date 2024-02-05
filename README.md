@@ -1,8 +1,4 @@
-# Template 개요
-## Template 사용법
-- 해당 레포지토리에서 `Use this template` 를 사용하여 Github에 Repo를 만들어 시작
-- 해당 레포지토리를 Fork 혹은 Download하여 시작
-
+# Petalk iOS 프로젝트
 ## 레이어 
 Features - Services - Core - UserInterface - Shared
 5개의 레이어를 가집니다.
@@ -22,8 +18,6 @@ Features - Services - Core - UserInterface - Shared
 - Shared
   - 로깅, extension 등 모든 레이어에서 공용으로 재사용될 모듈이 위치한 레이어
   - ex) UtilityModule, LoggingModule
-
-을 생각하여 레이어를 분리하였습니다.
 
 ## Micro Feature
 각 모듈은 Micro Feature 구조를 기반으로 설계됩니다.
