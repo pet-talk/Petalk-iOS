@@ -17,9 +17,9 @@ public extension Package {
             ComposableArchitecture, KakaoSDK, NaverSDK, SDWebImageSwiftUI
         ]
         
-        public static let ComposableArchitecture: Package = .remote(url: "https://github.com/pointfreeco/swift-composable-architecture", requirement: .branch("master"))
+        public static let ComposableArchitecture: Package = .remote(url: "https://github.com/pointfreeco/swift-composable-architecture", requirement: .branch("main"))
         public static let KakaoSDK: Package = .remote(url: "https://github.com/kakao/kakao-ios-sdk", requirement: .branch("master"))
         public static let NaverSDK: Package = .remote(url: "https://github.com/SH-OH/naveridlogin-sdk-ios.git", requirement: .branch("master"))
-        public static let SDWebImageSwiftUI: Package = .remote(url: "https://github.com/SDWebImage/SDWebImageSwiftUI.git", requirement: .branch("master"))
+        public static let SDWebImageSwiftUI: Package = .remote(url: "https://github.com/SDWebImage/SDWebImageSwiftUI.git", requirement: .upToNextMajor(from: "2.0.0"))
     }
 }

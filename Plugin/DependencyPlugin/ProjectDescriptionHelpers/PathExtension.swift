@@ -25,18 +25,6 @@ public extension ProjectDescription.Path {
 }
 
 public extension TargetDependency {
-    static func feature(name: String) -> Self {
-        return .project(target: name, path: .relativeToFeature(name))
-    }
-    static func domain(name: String) -> Self {
-        return .project(target: name, path: .relativeToDomain(name))
-    }
-    static func core(name: String) -> Self {
-        return .project(target: name, path: .relativeToCore(name))
-    }
-    static func userInterface(name: String) -> Self {
-        return .project(target: name, path: .relativeToUserInterface(name))
-    }
     static func shared(name: String) -> Self {
         return .project(target: name, path: .relativeToShared(name))
     }

@@ -8,7 +8,8 @@ let project = Project.module(
         .interface(module: .feature(.RootFeature)),
         .implements(module: .feature(.RootFeature), dependencies: [
             .feature(target: .RootFeature, type: .interface),
-            .feature(target: .BaseFeature, type: .interface)
+            .feature(target: .BaseFeature, type: .interface),
+//            .feature(target: .HomeFeature, type: .interface)
         ])
     ]
 )

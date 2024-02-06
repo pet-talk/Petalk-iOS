@@ -24,6 +24,7 @@ let targets: [Target] = [
         deploymentTargets: env.deploymentTargets,
         infoPlist: .file(path: "Support/Info.plist"),
         sources: ["Sources/**"],
+        resources: ["Resources/**"],
         scripts: scripts,
         dependencies: [
             .feature(target: .OnboardingFeature, type: .interface),

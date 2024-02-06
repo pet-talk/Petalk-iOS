@@ -11,8 +11,20 @@ private let template = Template(
     ],
     items: [
         .file(
-            path: "Projects/\(layerAttribute)/\(nameAttribute)/Sources/Sources.swift",
-            templatePath: "Sources.stencil"
-        )
+            path: "Projects/\(layerAttribute)/\(nameAttribute)/Sources/\(nameAttribute).swift",
+            templatePath: "Source.stencil"
+        ),
+        .file(
+            path: "Projects/\(layerAttribute)/\(nameAttribute)/Sources/\(nameAttribute)+Action.swift",
+            templatePath: "Source+Action.stencil"
+        ),
+        .file(
+            path: "Projects/\(layerAttribute)/\(nameAttribute)/Sources/\(nameAttribute)+State.swift",
+            templatePath: "Source+State.stencil"
+        ),
+        .file(
+            path: "Projects/\(layerAttribute)/\(nameAttribute)/Sources/\(nameAttribute)View.swift",
+            templatePath: "SourceView.stencil"
+        ),
     ]
 )

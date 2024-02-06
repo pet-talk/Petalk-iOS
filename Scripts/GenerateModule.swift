@@ -13,6 +13,17 @@ enum LayerType: String {
     case core = "Core"
     case userInterface = "UserInterface"
     case shared = "Shared"
+    
+    init?(shorthand: String) {
+        switch shorthand {
+        case "f": self = .feature
+        case "d": self = .domain
+        case "c": self = .core
+        case "u": self = .userInterface
+        case "s": self = .shared
+        default: return nil
+        }
+    }
 }
 
 enum MicroTargetType: String {
@@ -177,12 +188,12 @@ func updateFileContent(
 
 // MARK: - Starting point
 
-print("Enter layer name\n(Feature | Domain | Core | Shared | UserInterface)", terminator: " : ")
+print("Enter layer name\n(Feature(or f) | Domain(or d) | Core(or c) | UserInterface(or u) | Shared(or s))", terminator: " : ")
 let layerInput = readLine()
 guard
     let layerInput,
     !layerInput.isEmpty,
-    let layerUnwrapping = LayerType(rawValue: layerInput)
+    let layerUnwrapping = LayerType(rawValue: layerInput) ?? LayerType(shorthand: layerInput)
 else {
     print("Layer is empty or invalid")
     exit(1)
