@@ -13,11 +13,11 @@ public extension ProjectDescription.Path {
     static func relativeToCore(_ path: String) -> Self {
         return .relativeToRoot("Projects/Core/\(path)")
     }
-    static func relativeToShared(_ path: String) -> Self {
-        return .relativeToRoot("Projects/Shared/\(path)")
-    }
     static func relativeToUserInterface(_ path: String) -> Self {
         return .relativeToRoot("Projects/UserInterface/\(path)")
+    }
+    static func relativeToShared(_ path: String) -> Self {
+        return .relativeToRoot("Projects/Shared/\(path)")
     }
     static var app: Self {
         return .relativeToRoot("Projects/App")
@@ -34,10 +34,10 @@ public extension TargetDependency {
     static func core(name: String) -> Self {
         return .project(target: name, path: .relativeToCore(name))
     }
-    static func shared(name: String) -> Self {
-        return .project(target: name, path: .relativeToShared(name))
-    }
     static func userInterface(name: String) -> Self {
         return .project(target: name, path: .relativeToUserInterface(name))
+    }
+    static func shared(name: String) -> Self {
+        return .project(target: name, path: .relativeToShared(name))
     }
 }

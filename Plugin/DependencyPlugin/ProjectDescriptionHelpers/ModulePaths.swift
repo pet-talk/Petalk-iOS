@@ -24,19 +24,24 @@ extension ModulePaths: MicroTargetPathConvertable {
 
 public extension ModulePaths {
     enum Feature: String, MicroTargetPathConvertable {
+        case RootFeature
+        case OnboardingFeature
         case BaseFeature
+        
     }
 }
 
 public extension ModulePaths {
     enum Domain: String, MicroTargetPathConvertable {
         case BaseDomain
+        
     }
 }
 
 public extension ModulePaths {
     enum Core: String, MicroTargetPathConvertable {
         case CoreKit
+        
     }
 }
 
@@ -48,7 +53,8 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Shared: String, MicroTargetPathConvertable {
-        case GlobalThirdPartyLibrary
+        case ThirdParty
+        
     }
 }
 

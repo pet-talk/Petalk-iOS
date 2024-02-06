@@ -24,9 +24,11 @@ let targets: [Target] = [
         deploymentTargets: env.deploymentTargets,
         infoPlist: .file(path: "Support/Info.plist"),
         sources: ["Sources/**"],
-        resources: ["Resources/**"],
         scripts: scripts,
-        dependencies: [],
+        dependencies: [
+            .feature(target: .OnboardingFeature, type: .interface),
+            .feature(target: .RootFeature, type: .interface)
+        ],
         settings: .settings(base: env.baseSetting)
     )
 ]

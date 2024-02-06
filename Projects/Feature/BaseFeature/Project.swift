@@ -5,12 +5,17 @@ import ProjectDescriptionHelpers
 let project = Project.module(
     name: ModulePaths.Feature.BaseFeature.rawValue,
     targets: [
-        .implements(module: .feature(.BaseFeature), dependencies: [
-            .userInterface(target: .DesignSystem),
-            .shared(target: .GlobalThirdPartyLibrary)
+        .interface(module: .feature(.BaseFeature), dependencies: [
+            .SPM.ComposableArchitecture,
         ]),
-        .tests(module: .feature(.BaseFeature), dependencies: [
-            .feature(target: .BaseFeature)
-        ])
+        .implements(
+            module: .feature(.BaseFeature),
+            product: .framework,
+            dependencies: [
+                .feature(target: .BaseFeature, type: .interface),
+                .userInterface(target: .DesignSystem, type: .interface),
+                .core(target: .CoreKit),
+            ]
+        )
     ]
 )

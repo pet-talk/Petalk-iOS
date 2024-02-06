@@ -46,9 +46,10 @@ public extension Target {
     static func implements(
         module: ModulePaths,
         product: Product = .staticLibrary,
+        resources: ResourceFileElements? = nil,
         dependencies: [TargetDependency] = []
     ) -> Target {
-        TargetSpec(sources: .sources, dependencies: dependencies)
+        TargetSpec(sources: .sources, resources: resources, dependencies: dependencies)
             .toTarget(with: module.targetName(type: .sources), product: product)
     }
 
