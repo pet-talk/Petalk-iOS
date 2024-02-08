@@ -25,7 +25,7 @@ extension ModulePaths: MicroTargetPathConvertable {
 public extension ModulePaths {
     enum Feature: String, MicroTargetPathConvertable {
         case HomeFeature
-        case RootFeature
+        case MainTabFeature
         case OnboardingFeature
         case BaseFeature
         

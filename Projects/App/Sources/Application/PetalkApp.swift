@@ -1,17 +1,19 @@
 import SwiftUI
-import OnboardingFeatureInterface
+
+import OnboardingFeature
 
 @main
 struct PetalkApp: App {
-    var body: some Scene {
-        WindowGroup {
-            VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
-                Text("Hello, world!")
-            }
-            .padding()
-        }
+  var body: some Scene {
+    WindowGroup {
+      OnboardingFeatureView(
+        store: .init(
+          initialState: .init(),
+          reducer: {
+            OnboardingFeature()
+          }
+        )
+      )
     }
+  }
 }

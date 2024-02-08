@@ -5,6 +5,7 @@ import ComposableArchitecture
 // MARK: - View
 
 public struct OnboardingFeatureView: View {
+  
     @ObservedObject
     private var viewStore: ViewStoreOf<OnboardingFeature>
     private let store: StoreOf<OnboardingFeature>

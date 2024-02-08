@@ -1,5 +1,3 @@
-
-
 import ComposableArchitecture
 
 public struct HomeFeature: Reducer {
@@ -11,6 +9,9 @@ public struct HomeFeature: Reducer {
     Reduce<State, Action> { state, action in
       switch action {
       case .onAppear:
+        return .none
+        
+      case .binding:
         return .none
       }
     }

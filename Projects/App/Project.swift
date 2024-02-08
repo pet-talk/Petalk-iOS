@@ -27,8 +27,8 @@ let targets: [Target] = [
         resources: ["Resources/**"],
         scripts: scripts,
         dependencies: [
-            .feature(target: .OnboardingFeature, type: .interface),
-            .feature(target: .RootFeature, type: .interface)
+            .feature(target: .OnboardingFeature),
+            .feature(target: .MainTabFeature)
         ],
         settings: .settings(base: env.baseSetting)
     )

@@ -1,1 +1,3 @@
-# Empty
+trailing_whitespace:
+  ignores_empty_lines: true
+  ignores_comments: true
