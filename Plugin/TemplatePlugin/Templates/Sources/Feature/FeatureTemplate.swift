@@ -3,7 +3,7 @@ import ProjectDescription
 private let layerAttribute = Template.Attribute.required("layer")
 private let nameAttribute = Template.Attribute.required("name")
 
-private let template = Template(
+private let featureTemplate = Template(
     description: "A template for a new module's sources target",
     attributes: [
         layerAttribute,
@@ -12,19 +12,11 @@ private let template = Template(
     items: [
         .file(
             path: "Projects/\(layerAttribute)/\(nameAttribute)/Sources/\(nameAttribute).swift",
-            templatePath: "Source.stencil"
-        ),
-        .file(
-            path: "Projects/\(layerAttribute)/\(nameAttribute)/Sources/\(nameAttribute)+Action.swift",
-            templatePath: "Source+Action.stencil"
-        ),
-        .file(
-            path: "Projects/\(layerAttribute)/\(nameAttribute)/Sources/\(nameAttribute)+State.swift",
-            templatePath: "Source+State.stencil"
+            templatePath: "Feature.stencil"
         ),
         .file(
             path: "Projects/\(layerAttribute)/\(nameAttribute)/Sources/\(nameAttribute)View.swift",
-            templatePath: "SourceView.stencil"
+            templatePath: "FeatureView.stencil"
         ),
     ]
 )

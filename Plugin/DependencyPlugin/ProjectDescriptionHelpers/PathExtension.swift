@@ -23,9 +23,3 @@ public extension ProjectDescription.Path {
         return .relativeToRoot("Projects/App")
     }
 }
-
-public extension TargetDependency {
-    static func shared(name: String) -> Self {
-        return .project(target: name, path: .relativeToShared(name))
-    }
-}

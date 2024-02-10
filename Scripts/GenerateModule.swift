@@ -144,7 +144,7 @@ func makeProjectDirectory() {
 func makeSourceScaffold() {
     _ = try? bash.run(
         commandName: "tuist",
-        arguments: ["scaffold", "Sources", "--name", "\(moduleName)", "--layer", "\(layer.rawValue)"]
+        arguments: ["scaffold", "\(layer.rawValue)Template", "--name", "\(moduleName)", "--layer", "\(layer.rawValue)"]
     )
 }
 

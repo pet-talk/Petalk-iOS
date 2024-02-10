@@ -1,16 +1,15 @@
 import SwiftUI
 
 import ComposableArchitecture
+import DesignSystem
 
 // MARK: - View
 
+@ViewAction(for: {{name}}.self)
 public struct {{name}}View: View {
-  @ObservedObject
-  private var viewStore: ViewStoreOf<{{name}}>
-  private let store: StoreOf<{{name}}>
+  public let store: StoreOf<{{name}}>
 
   public init(store: StoreOf<{{name}}>) {
-    self.viewStore = .init(store, observe: { $0 })
     self.store = store
   }
 
@@ -19,8 +18,7 @@ public struct {{name}}View: View {
       Text("Hello, {{name}}!")
     }
     .task {
-      await viewStore
-        .send(.onAppear)
+      await send(.onAppear)
         .finish()
     }
   }
