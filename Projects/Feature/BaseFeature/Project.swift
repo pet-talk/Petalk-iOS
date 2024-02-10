@@ -7,8 +7,7 @@ let project = Project.module(
   targets: [
     .implements(module: .feature(.BaseFeature), dependencies: [
       .SPM.ComposableArchitecture,
-      .userInterface(target: .DesignSystem, type: .interface),
-      .core(target: .CoreKit),
+      .userInterface(target: .DesignSystem),
     ])
   ]
 )
