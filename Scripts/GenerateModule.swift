@@ -24,6 +24,15 @@ enum LayerType: String {
         default: return nil
         }
     }
+  
+  var templatePrefix: String {
+    switch self {
+    case .feature, .domain:
+      return rawValue
+    case .core, .userInterface, .shared:
+      return ""
+    }
+  }
 }
 
 enum MicroTargetType: String {
@@ -144,7 +153,7 @@ func makeProjectDirectory() {
 func makeSourceScaffold() {
     _ = try? bash.run(
         commandName: "tuist",
-        arguments: ["scaffold", "\(layer.rawValue)Template", "--name", "\(moduleName)", "--layer", "\(layer.rawValue)"]
+        arguments: ["scaffold", "\(layer.templatePrefix)Template", "--name", "\(moduleName)", "--layer", "\(layer.rawValue)"]
     )
 }
 

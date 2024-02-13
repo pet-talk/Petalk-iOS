@@ -4,7 +4,7 @@ private let layerAttribute = Template.Attribute.required("layer")
 private let nameAttribute = Template.Attribute.required("name")
 
 private let featureTemplate = Template(
-    description: "A template for a new module's sources target",
+    description: "A template for a new module's feature sources target",
     attributes: [
         layerAttribute,
         nameAttribute

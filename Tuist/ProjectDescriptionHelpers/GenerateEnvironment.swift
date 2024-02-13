@@ -16,7 +16,7 @@ public extension GenerateEnvironment {
         switch self {
         case .ci, .cd:
             return []
-
+            
         case .dev:
             return [.swiftLint]
         }

@@ -1,0 +1,19 @@
+import Foundation
+import Dependencies
+import DependenciesMacros
+
+@DependencyClient
+public struct {{name}}: Sendable {
+    public var greeting: @Sendable (_ name: String) async thrwos -> String
+}
+
+extension {{name}}: TestDependencyKey {
+    public static let testValue = Self()
+}
+
+extension DependencyValues {
+    public var authenticationClient: {{name}} {
+        get { self[{{name}}.self] }
+        set { self[{{name}}.self] = newValue }
+    }
+}

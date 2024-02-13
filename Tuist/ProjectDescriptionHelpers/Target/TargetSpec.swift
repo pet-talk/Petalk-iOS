@@ -25,7 +25,7 @@ public struct TargetSpec: Configurable {
     public var buildRules: [BuildRule]
     public var mergedBinaryType: MergedBinaryType
     public var mergeable: Bool
-
+    
     public init(
         name: String = "",
         destinations: Destinations = env.destinations,
@@ -73,11 +73,11 @@ public struct TargetSpec: Configurable {
         self.mergedBinaryType = mergedBinaryType
         self.mergeable = mergeable
     }
-
+    
     func toTarget() -> Target {
         self.toTarget(with: self.name)
     }
-
+    
     func toTarget(with name: String, product: Product? = nil) -> Target {
         Target(
             name: name,

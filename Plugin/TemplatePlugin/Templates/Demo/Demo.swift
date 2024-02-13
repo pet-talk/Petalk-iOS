@@ -26,6 +26,6 @@ private let template = Template(
         nameAttribute
     ],
     items: [
-      .string(path: "Projects/\(layerAttribute)/\(nameAttribute)/Demo/Sources", contents: appContents)
+        .string(path: "Projects/\(layerAttribute)/\(nameAttribute)/Demo/Sources", contents: appContents)
     ]
 )

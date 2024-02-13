@@ -14,13 +14,22 @@ private let template = Template(
         layerAttribute,
         nameAttribute
     ],
-    items: [
-        .string(
-            path: .basePath + "Interface/\(nameAttribute).swift",
-            contents: emptyContents
-        )
-    ]
+    items: TemplateType.allCases.map { $0.item }
 )
+
+private enum TemplateType: CaseIterable {
+    case `default`
+    
+    var item: Template.Item {
+        switch self {
+        case .default:
+            return .string(
+                path: .basePath + "\(nameAttribute).swift",
+                contents: emptyContents
+            )
+        }
+    }
+}
 
 private extension String {
     static var basePath: String {
