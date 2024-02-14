@@ -41,6 +41,7 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Core: String, MicroTargetPathConvertable {
+        case Logger
         case Network
         
     }
@@ -54,6 +55,7 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Shared: String, MicroTargetPathConvertable {
+        case FoundationUtility
         case SwiftUIUtility
         case CombineUtility
         case ThirdParty

@@ -16,7 +16,7 @@ private let template = Template(
     ],
     items: [
         .string(
-            path: .basePath + "Interface/\(nameAttribute).swift",
+            path: .basePath + "/Interface/Interface.swift",
             contents: emptyContents
         )
     ]

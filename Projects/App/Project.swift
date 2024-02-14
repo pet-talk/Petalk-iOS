@@ -27,10 +27,12 @@ let targets: [Target] = [
         resources: ["Resources/**"],
         scripts: scripts,
         dependencies: [
+            .shared(target: .ThirdParty, type: .interface),
+            .core(target: .Logger, type: .interface),
             .feature(target: .OnboardingFeature),
-            .feature(target: .MainTabFeature)
+            .feature(target: .MainTabFeature),
         ],
-        settings: .settings(base: env.baseSetting)
+        settings: settings
     )
 ]
 

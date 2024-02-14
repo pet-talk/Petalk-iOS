@@ -202,7 +202,7 @@ let layerInput = readLine()
 guard
     let layerInput,
     !layerInput.isEmpty,
-    let layerUnwrapping = LayerType(rawValue: layerInput) ?? LayerType(shorthand: layerInput)
+    let layerUnwrapping = LayerType(rawValue: layerInput) ?? LayderType(shorthand: layerInput)
 else {
     print("Layer is empty or invalid")
     exit(1)

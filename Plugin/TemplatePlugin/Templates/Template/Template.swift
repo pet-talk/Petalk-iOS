@@ -24,7 +24,7 @@ private enum TemplateType: CaseIterable {
         switch self {
         case .default:
             return .string(
-                path: .basePath + "\(nameAttribute).swift",
+                path: .basePath + "/Sources/Source.swift",
                 contents: emptyContents
             )
         }

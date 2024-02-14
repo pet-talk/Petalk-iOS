@@ -11,12 +11,18 @@ private let DomainTemplate = Template(
     ],
     items: [
         .file(
-            path: "Projects/\(layerAttribute)/\(nameAttribute)/Interface/\(nameAttribute).swift",
+            path: .basePath + "/Interface/\(nameAttribute).swift",
             templatePath: "Client.stencil"
         ),
         .file(
-            path: "Projects/\(layerAttribute)/\(nameAttribute)/Sources/Live\(nameAttribute).swift",
+            path: .basePath + "/Sources/Live\(nameAttribute).swift",
             templatePath: "LiveClient.stencil"
         )
     ]
 )
+
+private extension String {
+    static var basePath: String {
+        "Projects/\(layerAttribute)/\(nameAttribute)"
+    }
+}

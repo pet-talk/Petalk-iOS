@@ -8,9 +8,11 @@ let project = Project.module(
         .interface(module: .domain(.AuthClient), dependencies: [
             .SPM.DependenciesMacros,
             .SPM.Dependencies,
+            .shared(target: .ThirdParty, type: .interface),
         ]),
         .implements(module: .domain(.AuthClient), dependencies: [
-            .domain(target: .AuthClient, type: .interface)
+            .domain(target: .AuthClient, type: .interface),
+            .shared(target: .FoundationUtility)
         ]),
         .testing(module: .domain(.AuthClient), dependencies: [
             .domain(target: .AuthClient, type: .interface)

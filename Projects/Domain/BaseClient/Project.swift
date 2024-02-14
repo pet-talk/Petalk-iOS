@@ -5,7 +5,9 @@ import ProjectDescriptionHelpers
 let project = Project.module(
     name: ModulePaths.Domain.BaseClient.rawValue,
     targets: [
-        .interface(module: .domain(.BaseClient)),
+        .interface(module: .domain(.BaseClient), dependencies: [
+            
+        ]),
         .implements(module: .domain(.BaseClient), dependencies: [
             .domain(target: .BaseClient, type: .interface)
         ]),

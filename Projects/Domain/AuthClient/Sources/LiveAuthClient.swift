@@ -9,6 +9,8 @@ extension AuthClient: DependencyKey {
             try await Task.sleep(nanoseconds: 1_000_000_000)
             
             return "Hello, \(name)"
+        }, requestLogin: {
+            return .init(userId: "", nickname: "", userAuthority: "")
         }
     )
 }
