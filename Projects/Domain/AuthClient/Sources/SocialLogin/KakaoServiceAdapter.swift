@@ -12,29 +12,24 @@ import Logger
 typealias SignIn = AuthClientInterface.SignIn
 typealias User = AuthClientInterface.User
 
-protocol LoginService {
-    func requestLogin() async throws -> SignIn
-    func requestMe() async throws -> User
-}
-
-final class KakaoServiceAdapter: LoginService {
+struct KakaoServiceAdapter: LoginService {
     func requestLogin() async throws -> SignIn {
-        Log.debug(#function, state: .REQUEST)
-        return try await withCheckedThrowingContinuation { [weak self] continuation in
+        Log.debug(#function, "Kakao", state: .REQUEST)
+        return try await withCheckedThrowingContinuation { continuation in
             if UserApi.isKakaoTalkLoginAvailable() {
                 UserApi.shared.loginWithKakaoTalk { (token, error) in
-                    self?.processLogin(continuation: continuation, token: token, error: error)
+                    self.processLogin(continuation: continuation, token: token, error: error)
                 }
             } else {
                 UserApi.shared.loginWithKakaoAccount { token, error in
-                    self?.processLogin(continuation: continuation, token: token, error: error)
+                    self.processLogin(continuation: continuation, token: token, error: error)
                 }
             }
         }
     }
     
     func requestMe() async throws -> User {
-        Log.debug(#function, state: .REQUEST)
+        Log.debug(#function, "Kakao", state: .REQUEST)
         return try await withCheckedThrowingContinuation { continuation in
             UserApi.shared.me { user, error in
                 if let error {
@@ -47,13 +42,30 @@ final class KakaoServiceAdapter: LoginService {
                     continuation.resume(throwing: error)
                     return
                 } else {
-                    Log.debug(#function, "SUCCESS", state: .COMPLETE)
+                    Log.debug(#function, "Success", state: .COMPLETE)
                     let user = User(
                         userId: user?.id?.string,
                         nickname: user?.kakaoAccount?.profile?.nickname,
                         userAuthority: ""
                     )
                     continuation.resume(returning: user)
+                    return
+                }
+            }
+        }
+    }
+    
+    func requestLogout() async throws {
+        Log.debug(#function, "Kakao", state: .REQUEST)
+        return try await withCheckedThrowingContinuation { continuation in
+            UserApi.shared.logout { error in
+                if let error {
+                    Log.error(error)
+                    continuation.resume(throwing: error)
+                    return
+                } else {
+                    Log.debug(#function, "Success", state: .COMPLETE)
+                    continuation.resume(returning: ())
                     return
                 }
             }
@@ -75,7 +87,7 @@ final class KakaoServiceAdapter: LoginService {
             continuation.resume(throwing: error)
             return
         } else {
-            Log.debug(#function, "SUCCESS", state: .COMPLETE)
+            Log.debug(#function, "Success", state: .COMPLETE)
             let signIn = SignIn(
                 accessToken: token!.accessToken,
                 refreshToken: token!.refreshToken
