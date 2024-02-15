@@ -41,7 +41,6 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Core: String, MicroTargetPathConvertable {
-        case Logger
         case Network
         
     }
@@ -55,6 +54,7 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Shared: String, MicroTargetPathConvertable {
+        case Logger
         case FoundationUtility
         case SwiftUIUtility
         case CombineUtility
@@ -80,3 +80,7 @@ public extension MicroTargetPathConvertable where Self: RawRepresentable {
         "\(self.rawValue)\(type.rawValue)"
     }
 }
+
+// MARK: - For DI
+extension ModulePaths.Feature: CaseIterable {}
+extension ModulePaths.Domain: CaseIterable {}

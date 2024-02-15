@@ -6,8 +6,9 @@ let project = Project.module(
     name: ModulePaths.Feature.BaseFeature.rawValue,
     targets: [
         .implements(module: .feature(.BaseFeature), dependencies: [
-            .SPM.ComposableArchitecture,
+            .shared(target: .ThirdParty),
             .userInterface(target: .DesignSystem),
+            
         ])
     ]
 )

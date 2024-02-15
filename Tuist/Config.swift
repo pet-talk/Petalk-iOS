@@ -7,5 +7,5 @@ let config = Config(
         .local(path: .relativeToRoot("Plugin/EnvironmentPlugin")),
         .local(path: .relativeToRoot("Plugin/TemplatePlugin"))
     ],
-    generationOptions: .options(staticSideEffectsWarningTargets: .all)
+    generationOptions: .options()
 )

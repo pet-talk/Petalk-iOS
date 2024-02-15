@@ -6,14 +6,19 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 
 let configurations: [Configuration] = .default
-
 let settings: Settings = .settings(
     base: env.baseSetting,
     configurations: configurations,
     defaultSettings: .recommended
 )
-
 let scripts: [TargetScript] = generateEnvironment.scripts
+
+let domains: [TargetDependency] = ModulePaths.Domain.allCases.map({ TargetDependency.domain(target: $0) })
+let features: [TargetDependency] = ModulePaths.Feature.allCases.map({ TargetDependency.feature(target: $0) })
+let dependencies: [TargetDependency] = domains + features + [
+    .core(target: .Network, type: .interface),
+    
+]
 
 let targets: [Target] = [
     .init(
@@ -26,12 +31,7 @@ let targets: [Target] = [
         sources: ["Sources/**"],
         resources: ["Resources/**"],
         scripts: scripts,
-        dependencies: [
-            .shared(target: .ThirdParty, type: .interface),
-            .core(target: .Logger, type: .interface),
-            .feature(target: .OnboardingFeature),
-            .feature(target: .MainTabFeature),
-        ],
+        dependencies: dependencies,
         settings: settings
     )
 ]

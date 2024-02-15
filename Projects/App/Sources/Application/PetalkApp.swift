@@ -1,6 +1,5 @@
 import SwiftUI
 import OnboardingFeature
-import ThirdPartyInterface
 
 @main
 struct PetalkApp: App {

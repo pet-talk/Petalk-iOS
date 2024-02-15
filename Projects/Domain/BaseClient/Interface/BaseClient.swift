@@ -3,11 +3,11 @@ import Dependencies
 import DependenciesMacros
 
 @DependencyClient
-public struct {{name}}: Sendable {
+public struct BaseClient: Sendable {
     public var greeting: @Sendable (_ name: String) async throws -> String
 }
 
-extension {{name}}: TestDependencyKey {
+extension BaseClient: TestDependencyKey {
     public static let testValue = Self(
         greeting: { name in
             // Delay the task by 1 second
@@ -19,8 +19,8 @@ extension {{name}}: TestDependencyKey {
 }
 
 extension DependencyValues {
-    public var {{name}}: {{name}} {
-        get { self[{{name}}.self] }
-        set { self[{{name}}.self] = newValue }
+    public var baseClient: BaseClient {
+        get { self[BaseClient.self] }
+        set { self[BaseClient.self] = newValue }
     }
 }

@@ -29,7 +29,7 @@ public struct TargetSpec: Configurable {
     public init(
         name: String = "",
         destinations: Destinations = env.destinations,
-        product: Product = .staticLibrary,
+        product: Product = .framework,
         productName: String? = nil,
         bundleId: String? = nil,
         deploymentTargets: DeploymentTargets? = env.deploymentTargets,

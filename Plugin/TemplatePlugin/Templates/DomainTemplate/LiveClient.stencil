@@ -1,6 +1,6 @@
 import Foundation
 import Dependencies
-import {{name}}
+import {{name}}Interface
 
 extension {{name}}: DependencyKey {
     public static let liveValue = Self(

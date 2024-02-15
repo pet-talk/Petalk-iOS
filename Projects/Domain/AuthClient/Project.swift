@@ -6,13 +6,12 @@ let project = Project.module(
     name: ModulePaths.Domain.AuthClient.rawValue,
     targets: [
         .interface(module: .domain(.AuthClient), dependencies: [
-            .SPM.DependenciesMacros,
-            .SPM.Dependencies,
-            .shared(target: .ThirdParty, type: .interface),
+            .domain(target: .BaseClient, type: .interface),
+            .SPM.KakaoSDK,
+            .SPM.NaverThirdPartyLogin,
         ]),
-        .implements(module: .domain(.AuthClient), dependencies: [
+        .implements(module: .domain(.AuthClient), product: .staticLibrary, dependencies: [
             .domain(target: .AuthClient, type: .interface),
-            .shared(target: .FoundationUtility)
         ]),
         .testing(module: .domain(.AuthClient), dependencies: [
             .domain(target: .AuthClient, type: .interface)

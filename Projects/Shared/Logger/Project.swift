@@ -3,8 +3,8 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 
 let project = Project.module(
-    name: ModulePaths.Shared.SwiftUIUtility.rawValue,
+    name: ModulePaths.Shared.Logger.rawValue,
     targets: [
-        .implements(module: .shared(.SwiftUIUtility), product: .staticLibrary)
+        .implements(module: .shared(.Logger), product: .staticLibrary)
     ]
 )
