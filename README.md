@@ -1,6 +1,6 @@
 # Petalk iOS 프로젝트
 ## 레이어 
-Features - Services - Core - UserInterface - Shared
+Features - Domain - Core - UserInterface - Shared
 5개의 레이어를 가집니다.
 
 - Feature
