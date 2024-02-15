@@ -1,23 +1,23 @@
 # Petalk iOS 프로젝트
 ## 레이어 
-Features - Services - Core - UserInterface - Shared
+Features - Domain - Core - UserInterface - Shared
 5개의 레이어를 가집니다.
 
 - Feature
   - 사용자의 액션을 처리하거나 데이터를 보여주는, 사용자와 직접 맞닿는 레이어
-  - ex) AuthFeature, ProfileFeature
+  - ex) OnboardingFeature
 - Domain
   - 도메인 로직이 진행되는 레이어
-  - ex) AuthDomain, ProfileDomain
+  - ex) AuthClient
 - Core
   - 앱의 비즈니스를 포함하지 않고 순수 기능성 모듈이 위치한 레이어
-  - ex) NetworkingModule, DatabaseModule
+  - ex) Networking
 - UserInterface
   - 공용 View, 디자인 시스템, 리소스 등 UI 요소 모듈이 위치한 레이어
   - ex) DesignSystem, LocalizableManager
 - Shared
   - 로깅, extension 등 모든 레이어에서 공용으로 재사용될 모듈이 위치한 레이어
-  - ex) UtilityModule, LoggingModule
+  - ex) UtilityModule, LoggerModule
 
 ## Micro Feature
 각 모듈은 Micro Feature 구조를 기반으로 설계됩니다.
