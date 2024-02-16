@@ -1,4 +1,7 @@
 # Petalk iOS 프로젝트
+## 프로젝트 구조
+- TCA(https://github.com/pointfreeco/swift-composable-architecture) + Tuist(https://tuist.io/)
+
 ## 레이어 
 Feature - Domain - Core - UserInterface - Shared
 5개의 레이어를 가집니다.
@@ -8,7 +11,7 @@ Feature - Domain - Core - UserInterface - Shared
   - ex) OnboardingFeature
 - Domain
   - 도메인 로직이 진행되는 레이어
-  - ex) AuthClient
+  - ex) AuthClient
 - Core
   - 앱의 비즈니스를 포함하지 않고 순수 기능성 모듈이 위치한 레이어
   - ex) Networking
@@ -18,12 +21,6 @@ Feature - Domain - Core - UserInterface - Shared
 - Shared
   - 로깅, extension 등 모든 레이어에서 공용으로 재사용될 모듈이 위치한 레이어
   - ex) UtilityModule, LoggerModule
-
-## Micro Feature
-각 모듈은 Micro Feature 구조를 기반으로 설계됩니다.
-확장 가능하고 커지는 프로젝트를 기능별로 수평 확장이 가능하도록 Micro Service에서 영감을 얻은 아키텍쳐입니다.
-
-<img src="https://user-images.githubusercontent.com/74440939/210211725-5ac7c9fe-bf25-4707-9775-4f46f1c0c522.png" width="200">
 
 ##### https://docs.tuist.io/building-at-scale/microfeatures/#product
 
