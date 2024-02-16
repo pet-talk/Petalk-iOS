@@ -1,6 +1,5 @@
 import Foundation
 import Dependencies
-import BaseClientInterface
 
 extension BaseClient: DependencyKey {
     public static let liveValue = Self(

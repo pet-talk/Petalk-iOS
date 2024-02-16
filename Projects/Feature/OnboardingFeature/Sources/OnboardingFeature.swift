@@ -1,11 +1,14 @@
 import ComposableArchitecture
-import AuthClientInterface
+
+import AuthClient
+import Logger
+import ThirdParty
 
 @Reducer
 public struct OnboardingFeature {
     @ObservableState
     public struct State: Equatable {
-        public var loginType: LoginType?
+        public var loginMethod: SocialLoginMethod?
         
         public init() {}
     }
@@ -16,7 +19,7 @@ public struct OnboardingFeature {
     
     public enum View: BindableAction {
         case binding(BindingAction<State>)
-        case loginButtonTapped(LoginType)
+        case loginButtonTapped(SocialLoginMethod)
     }
     
     @Dependency(\.authClient) var authClient
@@ -30,21 +33,13 @@ public struct OnboardingFeature {
             case .view(.binding):
                 return .none
                 
-            case .view(.loginButtonTapped(let loginType)):
-                state.loginType = loginType
-                return .run { send in
-                    let text = try await authClient.greeting(name: "\(loginType)")
-                    print(text)
-                }
+            case .view(.loginButtonTapped(let loginMethod)):
+                state.loginMethod = loginMethod
+                return .run(operation: { _ in
+                    let user = try await authClient.requestLogin(loginMethod: .kakao)
+                    Log.debug(user)
+                })
             }
         }
-    }
-}
-
-extension OnboardingFeature {
-    public enum LoginType: CaseIterable {
-        case kakao
-        case naver
-        case apple
     }
 }

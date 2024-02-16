@@ -1,12 +1,10 @@
 import SwiftUI
+import ComposableArchitecture
+
 import OnboardingFeature
 
 @main
 struct PetalkApp: App {
-    
-    init() {
-        AppService.initialize()
-    }
     
     var body: some Scene {
         WindowGroup {
@@ -19,7 +17,8 @@ struct PetalkApp: App {
                 )
             )
             .onOpenURL(perform: { url in
-                AppService.openURL(url)
+//                AppService.openURL(url)
+                
             })
         }
     }

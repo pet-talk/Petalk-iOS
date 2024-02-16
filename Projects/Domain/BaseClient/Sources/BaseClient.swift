@@ -19,7 +19,7 @@ extension BaseClient: TestDependencyKey {
 }
 
 extension DependencyValues {
-    public var baseClient: BaseClient {
+    public var authClient: BaseClient {
         get { self[BaseClient.self] }
         set { self[BaseClient.self] = newValue }
     }

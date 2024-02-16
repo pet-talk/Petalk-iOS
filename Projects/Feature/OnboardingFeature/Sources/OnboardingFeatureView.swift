@@ -1,6 +1,8 @@
 import SwiftUI
 
 import ComposableArchitecture
+
+import AuthClient
 import DesignSystem
 
 // MARK: - View
@@ -20,31 +22,31 @@ public struct OnboardingFeatureView: View {
             Spacer()
             
             VStack(spacing: 8, content: {
-                loginButton(type: .kakao)
-                loginButton(type: .naver)
-                loginButton(type: .apple)
+                loginButton(loginMethod: .kakao)
+                loginButton(loginMethod: .naver)
+                loginButton(loginMethod: .apple)
             })
             .padding(.horizontal, 24)
             .padding(.bottom, 100)
         })
     }
     
-    private func loginButton(type: OnboardingFeature.LoginType) -> some View {
+    private func loginButton(loginMethod: SocialLoginMethod) -> some View {
         HStack(alignment: .center, content: {
-            Image(asset: type.icon)
+            Image(asset: loginMethod.icon)
                 .frame(width: 20, height: 20, alignment: .top)
             Spacer()
-            Text("\(type.title)로 시작하기")
+            Text("\(loginMethod.title)로 시작하기")
             Spacer()
         })
         .onTapGesture {
-            send(.loginButtonTapped(type))
+            send(.loginButtonTapped(loginMethod))
         }
         .padding(.horizontal, 24)
         .frame(maxWidth: .infinity)
         .frame(height: 55)
-        .background(type.backgroundColor)
-        .foregroundStyle(type.foregroundColor)
+        .background(loginMethod.backgroundColor)
+        .foregroundStyle(loginMethod.foregroundColor)
         .clipShape(.rect(cornerRadius: 10))
     }
 }
@@ -53,16 +55,13 @@ public struct OnboardingFeatureView: View {
 
 #Preview {
     OnboardingFeatureView(
-        store: .init(
-            initialState: .init(),
-            reducer: {
-                OnboardingFeature()
-            }
-        )
+        store: Store(initialState: OnboardingFeature.State(), reducer: {
+            OnboardingFeature()
+        })
     )
 }
 
-extension OnboardingFeature.LoginType {
+extension SocialLoginMethod {
     fileprivate var title: String {
         switch self {
         case .kakao:

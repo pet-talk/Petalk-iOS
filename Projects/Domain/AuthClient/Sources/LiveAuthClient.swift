@@ -1,6 +1,5 @@
 import Foundation
 import Dependencies
-import AuthClientInterface
 
 extension AuthClient: DependencyKey {
     public static let liveValue = Self(
@@ -9,8 +8,20 @@ extension AuthClient: DependencyKey {
             try await Task.sleep(nanoseconds: 1_000_000_000)
             
             return "Hello, \(name)"
-        }, requestLogin: {
-            return .init(userId: "", nickname: "", userAuthority: "")
+        }, requestLogin: { loginMethod in
+            let loginService: LoginService
+//            switch loginMethod {
+//            case .kakao:
+                loginService = KakaoServiceAdapter()
+//            case .naver:
+//                break
+//            case .apple:
+//                break
+//            }
+            
+            let signIn = try await loginService.requestLogin()
+            let user = try await loginService.requestMe()
+            return user
         }
     )
 }

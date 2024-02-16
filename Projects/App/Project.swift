@@ -12,12 +12,10 @@ let settings: Settings = .settings(
     defaultSettings: .recommended
 )
 let scripts: [TargetScript] = generateEnvironment.scripts
-
-let domains: [TargetDependency] = ModulePaths.Domain.allCases.map({ TargetDependency.domain(target: $0) })
-let features: [TargetDependency] = ModulePaths.Feature.allCases.map({ TargetDependency.feature(target: $0) })
-let dependencies: [TargetDependency] = domains + features + [
+let dependencies: [TargetDependency] = [
+    .feature(target: .OnboardingFeature),
+    .feature(target: .MainTabFeature),
     .core(target: .Network, type: .interface),
-    
 ]
 
 let targets: [Target] = [

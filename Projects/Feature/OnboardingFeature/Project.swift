@@ -7,7 +7,7 @@ let project = Project.module(
     targets: [
         .implements(module: .feature(.OnboardingFeature), dependencies: [
             .feature(target: .BaseFeature),
-            .domain(target: .AuthClient, type: .interface)
+            .domain(target: .AuthClient),
         ]),
         .testing(module: .feature(.OnboardingFeature), dependencies: [
             .feature(target: .OnboardingFeature)

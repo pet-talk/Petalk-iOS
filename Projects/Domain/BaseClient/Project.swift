@@ -5,14 +5,11 @@ import ProjectDescriptionHelpers
 let project = Project.module(
     name: ModulePaths.Domain.BaseClient.rawValue,
     targets: [
-        .interface(module: .domain(.BaseClient), dependencies: [
+        .implements(module: .domain(.BaseClient), dependencies: [
             .shared(target: .ThirdParty),
         ]),
-        .implements(module: .domain(.BaseClient), product: .staticLibrary, dependencies: [
-            .domain(target: .BaseClient, type: .interface)
-        ]),
         .testing(module: .domain(.BaseClient), dependencies: [
-            .domain(target: .BaseClient, type: .interface)
+            .domain(target: .BaseClient)
         ]),
         .tests(module: .domain(.BaseClient), dependencies: [
             .domain(target: .BaseClient)

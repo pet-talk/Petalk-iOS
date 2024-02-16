@@ -1,16 +1,21 @@
 import SwiftUI
 
+import ComposableArchitecture
+
+import OnboardingFeature
+
 @main
 struct DemoApp: App {
   var body: some Scene {
     WindowGroup {
-      VStack {
-        Image(systemName: "globe")
-          .imageScale(.large)
-          .foregroundStyle(.tint)
-        Text("Hello, world!")
-      }
-      .padding()
+        OnboardingFeatureView(
+            store: .init(
+                initialState: .init(),
+                reducer: {
+                    OnboardingFeature()
+                }
+            )
+        )
     }
   }
 }

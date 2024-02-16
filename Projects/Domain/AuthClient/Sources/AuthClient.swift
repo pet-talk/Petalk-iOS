@@ -5,7 +5,7 @@ import DependenciesMacros
 @DependencyClient
 public struct AuthClient: Sendable {
     public var greeting: @Sendable (_ name: String) async throws -> String
-    public var requestLogin: @Sendable () async throws -> User
+    public var requestLogin: @Sendable (_ loginMethod: SocialLoginMethod) async throws -> User
 }
 
 extension AuthClient: TestDependencyKey {
@@ -16,8 +16,12 @@ extension AuthClient: TestDependencyKey {
             
             return "Hello, \(name)"
         },
-        requestLogin: {
-            return .init(userId: "", nickname: "", userAuthority: "")
+        requestLogin: { loginMethod in
+            return .init(
+                userId: "\(loginMethod)_1",
+                nickname: "\(loginMethod)_nickname",
+                userAuthority: ""
+            )
         }
     )
 }

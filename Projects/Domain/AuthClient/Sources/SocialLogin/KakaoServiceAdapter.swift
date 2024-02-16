@@ -5,16 +5,23 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
 
-import AuthClientInterface
 import FoundationUtility
 import Logger
 
-typealias SignIn = AuthClientInterface.SignIn
-typealias User = AuthClientInterface.User
+extension SocialLoginMethod {
+    fileprivate static let kakaoAppKey: String = Bundle.main.value(for: "KakaoAppKey")
+}
 
-struct KakaoServiceAdapter: LoginService {
+final class KakaoServiceAdapter: LoginService {
+    
+    init() {
+        KakaoSDK.initSDK(appKey: SocialLoginMethod.kakaoAppKey)
+    }
+    
+    @MainActor
     func requestLogin() async throws -> SignIn {
         Log.debug(#function, "Kakao", state: .REQUEST)
+        
         return try await withCheckedThrowingContinuation { continuation in
             if UserApi.isKakaoTalkLoginAvailable() {
                 UserApi.shared.loginWithKakaoTalk { (token, error) in
@@ -37,7 +44,7 @@ struct KakaoServiceAdapter: LoginService {
                     continuation.resume(throwing: error)
                     return
                 } else if user == nil {
-                    let error = KakaoServiceError.meFailed
+                    let error = LoginServiceError.userIsNil(.kakao)
                     Log.error(error)
                     continuation.resume(throwing: error)
                     return
@@ -82,7 +89,7 @@ struct KakaoServiceAdapter: LoginService {
             continuation.resume(throwing: error)
             return
         } else if token == nil {
-            let error = KakaoServiceError.meFailed
+            let error = LoginServiceError.tokenIsNil(.kakao)
             Log.error(error)
             continuation.resume(throwing: error)
             return
@@ -94,6 +101,14 @@ struct KakaoServiceAdapter: LoginService {
             )
             continuation.resume(returning: signIn)
             return
+        }
+    }
+}
+
+extension KakaoServiceAdapter {
+    func openURL(_ url: URL) {
+        if AuthApi.isKakaoTalkLoginUrl(url) {
+            _ = AuthController.handleOpenUrl(url: url)
         }
     }
 }
