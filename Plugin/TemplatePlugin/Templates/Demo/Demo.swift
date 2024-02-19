@@ -8,14 +8,14 @@ import SwiftUI
 
 @main
 struct DemoApp: App {
-  var body: some Scene {
-    WindowGroup {
-      VStack {
-        Text("Hello, \(nameAttribute)!")
-      }
-      .padding()
+    var body: some Scene {
+        WindowGroup {
+            VStack {
+                Text("Hello, \(nameAttribute)!")
+            }
+            .padding()
+        }
     }
-  }
 }
 """
 
@@ -26,6 +26,6 @@ private let template = Template(
         nameAttribute
     ],
     items: [
-        .string(path: "Projects/\(layerAttribute)/\(nameAttribute)/Demo/Sources", contents: appContents)
+        .string(path: "Projects/\(layerAttribute)/\(nameAttribute)/Demo/Sources/Source.swift", contents: appContents)
     ]
 )

@@ -5,17 +5,17 @@ import DesignSystem
 
 // MARK: - View
 
-@ViewAction(for: {{name}}.self)
-public struct {{name}}View: View {
-    public let store: StoreOf<{{name}}>
-
-    public init(store: StoreOf<{{name}}>) {
+@ViewAction(for: MainTabFeature.self)
+public struct MainTabFeatureView: View {
+    public let store: StoreOf<MainTabFeature>
+    
+    public init(store: StoreOf<MainTabFeature>) {
         self.store = store
     }
-
+    
     public var body: some View {
         List {
-            Text("Hello, {{name}}!")
+            Text("Hello, RootFeature!")
         }
         .task {
             await send(.onAppear)
@@ -27,11 +27,11 @@ public struct {{name}}View: View {
 // MARK: - Preview
 
 #Preview {
-    {{name}}View(
+    MainTabFeatureView(
         store: .init(
             initialState: .init(),
             reducer: {
-                {{name}}()
+                MainTabFeature()
             }
         )
     )

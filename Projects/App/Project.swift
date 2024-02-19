@@ -12,11 +12,6 @@ let settings: Settings = .settings(
     defaultSettings: .recommended
 )
 let scripts: [TargetScript] = generateEnvironment.scripts
-let dependencies: [TargetDependency] = [
-    .feature(target: .OnboardingFeature),
-    .feature(target: .MainTabFeature),
-    .core(target: .Network, type: .interface),
-]
 
 let targets: [Target] = [
     .init(
@@ -29,7 +24,9 @@ let targets: [Target] = [
         sources: ["Sources/**"],
         resources: ["Resources/**"],
         scripts: scripts,
-        dependencies: dependencies,
+        dependencies: [
+            .feature(target: .RootFeature)
+        ],
         settings: settings
     )
 ]

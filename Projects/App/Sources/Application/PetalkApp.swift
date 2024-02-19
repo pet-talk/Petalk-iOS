@@ -1,18 +1,18 @@
 import SwiftUI
 import ComposableArchitecture
 
+import RootFeature
 import OnboardingFeature
 
 @main
 struct PetalkApp: App {
-    
     var body: some Scene {
         WindowGroup {
-            OnboardingFeatureView(
+            RootFeatureView(
                 store: .init(
                     initialState: .init(),
                     reducer: {
-                        OnboardingFeature()
+                        RootFeature()
                     }
                 )
             )
