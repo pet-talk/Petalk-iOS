@@ -5,8 +5,7 @@ public typealias DEP = TargetDependency
 public extension DEP {
     struct SPM {
         public static let ComposableArchitecture: DEP = .external(name: "ComposableArchitecture", condition: nil)
-        public static let Dependencies: DEP = .external(name: "Dependencies", condition: nil)
-        public static let DependenciesMacros: DEP = .external(name: "DependenciesMacros", condition: nil)
+        public static let TCACoordinators: DEP = .external(name: "TCACoordinators", condition: nil)
         public static let KakaoSDK: DEP = .external(name: "KakaoSDK", condition: nil)
         public static let NaverThirdPartyLogin: DEP = .external(name: "NaverThirdPartyLogin", condition: nil)
         public static let SDWebImageSwiftUI: DEP = .external(name: "SDWebImageSwiftUI", condition: nil)
@@ -17,6 +16,7 @@ public extension DEP {
 public extension Package {
     enum SPM: CaseIterable {
         case ComposableArchitecture
+        case TCACoordinators
         case KakaoSDK
         case NaverThirdPartyLogin
         case SDWebImageSwiftUI
@@ -25,15 +25,51 @@ public extension Package {
         public var package: Package {
             switch self {
             case .ComposableArchitecture:
-                return .remote(url: "https://github.com/pointfreeco/swift-composable-architecture", requirement: .upToNextMajor(from: "1.8.0"))
+                return .remote(
+                    url: "https://github.com/pointfreeco/swift-composable-architecture.git",
+                    requirement: .upToNextMajor(
+                        from: "1.9.0"
+                    )
+                )
+            case .TCACoordinators:
+                return .remote(
+                    url: "https://github.com/SH-OH/TCACoordinators.git",
+                    requirement: .branch("main")
+                )
+//                return .remote(
+//                    url: "https://github.com/johnpatrickmorgan/TCACoordinators.git",
+//                    requirement: .upToNextMajor(
+//                        from: "0.8.0"
+//                    )
+//                )
             case .KakaoSDK:
-                return .remote(url: "https://github.com/kakao/kakao-ios-sdk", requirement: .branch("master"))
+                return .remote(
+                    url: "https://github.com/kakao/kakao-ios-sdk",
+                    requirement: .branch(
+                        "master"
+                    )
+                )
             case .NaverThirdPartyLogin:
-                return .remote(url: "https://github.com/SH-OH/naveridlogin-sdk-ios.git", requirement: .branch("master"))
+                return .remote(
+                    url: "https://github.com/SH-OH/naveridlogin-sdk-ios.git",
+                    requirement: .branch(
+                        "master"
+                    )
+                )
             case .SDWebImageSwiftUI:
-                return .remote(url: "https://github.com/SDWebImage/SDWebImageSwiftUI.git", requirement: .upToNextMajor(from: "2.0.0"))
+                return .remote(
+                    url: "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
+                    requirement: .upToNextMajor(
+                        from: "2.0.0"
+                    )
+                )
             case .Alamofire:
-                return .remote(url: "https://github.com/Alamofire/Alamofire.git", requirement: .upToNextMajor(from: "5.0.0"))
+                return .remote(
+                    url: "https://github.com/Alamofire/Alamofire.git",
+                    requirement: .upToNextMajor(
+                        from: "5.0.0"
+                    )
+                )
             }
         }
     }

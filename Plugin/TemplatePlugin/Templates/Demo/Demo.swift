@@ -6,6 +6,10 @@ private let nameAttribute = Template.Attribute.required("name")
 private let appContents = """
 import SwiftUI
 
+import ComposableArchitecture
+
+import \(nameAttribute)
+
 @main
 struct DemoApp: App {
     var body: some Scene {
@@ -17,6 +21,19 @@ struct DemoApp: App {
         }
     }
 }
+
+// MARK: - Preview
+
+#Preview {
+    \(nameAttribute)View(
+        store: .init(
+            initialState: .init(),
+            reducer: {
+                \(nameAttribute)()
+            }
+        )
+    )
+}
 """
 
 private let template = Template(
@@ -26,6 +43,6 @@ private let template = Template(
         nameAttribute
     ],
     items: [
-        .string(path: "Projects/\(layerAttribute)/\(nameAttribute)/Demo/Sources/Source.swift", contents: appContents)
+        .string(path: "Projects/\(layerAttribute)/\(nameAttribute)/Demo/Sources/DemoApp.swift", contents: appContents)
     ]
 )

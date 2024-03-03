@@ -23,16 +23,3 @@ public struct MainTabFeatureView: View {
         }
     }
 }
-
-// MARK: - Preview
-
-#Preview {
-    MainTabFeatureView(
-        store: .init(
-            initialState: .init(),
-            reducer: {
-                MainTabFeature()
-            }
-        )
-    )
-}

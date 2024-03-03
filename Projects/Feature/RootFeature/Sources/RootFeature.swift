@@ -11,7 +11,10 @@ public enum RootFeature {
     public static var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .onboarding(<#T##OnboardingFeature.Action#>)
+            case .onboarding:
+                return .none
+            case .mainTab(_):
+                return .none
             }
         }.ifCaseLet(\.onboarding, action: \.onboarding) {
             OnboardingFeature()
@@ -19,15 +22,6 @@ public enum RootFeature {
         .ifCaseLet(\.mainTab, action: \.mainTab) {
             MainTabFeature()
         }
+        ._printChanges()
     }
-    
-//    public var body: some Reducer<State, Action> {
-//        BindingReducer(action: \.view)
-//        Reduce<State, Action> { state, action in
-//            switch action {
-//            case .view:
-//                return .none
-//            }
-//        }
-//    }
 }

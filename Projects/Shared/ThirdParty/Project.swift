@@ -5,12 +5,17 @@ import ProjectDescriptionHelpers
 let project = Project.module(
     name: ModulePaths.Shared.ThirdParty.rawValue,
     targets: [
-        .implements(module: .shared(.ThirdParty), dependencies: [
-            .SPM.ComposableArchitecture,
-            .shared(target: .FoundationUtility),
-            .shared(target: .CombineUtility),
-            .shared(target: .SwiftUIUtility),
-            .shared(target: .Logger),
-        ])
+        .implements(
+            module: .shared(.ThirdParty),
+            product: .framework,
+            dependencies: [
+                .SPM.ComposableArchitecture,
+                .SPM.TCACoordinators,
+                .shared(target: .FoundationUtility),
+                .shared(target: .CombineUtility),
+                .shared(target: .SwiftUIUtility),
+                .shared(target: .Logger),
+            ]
+        )
     ]
 )

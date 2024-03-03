@@ -1,19 +1,30 @@
 import ComposableArchitecture
 
+@Reducer
 public struct HomeFeature: Reducer {
-
-  public init() {}
-
-  public var body: some Reducer<State, Action> {
-    BindingReducer()
-    Reduce<State, Action> { state, action in
-      switch action {
-      case .onAppear:
-        return .none
+    @ObservableState
+    public struct State: Equatable {
         
-      case .binding:
-        return .none
-      }
+        public init() {}
     }
-  }
+    
+    public enum Action: Equatable, BindableAction {
+        case onAppear
+        case binding(BindingAction<State>)
+    }
+    
+    public init() {}
+    
+    public var body: some Reducer<State, Action> {
+        BindingReducer()
+        Reduce<State, Action> { state, action in
+            switch action {
+            case .onAppear:
+                return .none
+                
+            case .binding:
+                return .none
+            }
+        }
+    }
 }

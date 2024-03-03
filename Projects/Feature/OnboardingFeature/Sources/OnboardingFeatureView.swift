@@ -2,7 +2,7 @@ import SwiftUI
 
 import ComposableArchitecture
 
-import AuthClient
+import AuthDomainInterface
 import DesignSystem
 
 // MARK: - View
@@ -40,7 +40,7 @@ public struct OnboardingFeatureView: View {
             Spacer()
         })
         .onTapGesture {
-            send(.loginButtonTapped(loginMethod))
+            send(.loginButtonTapped)
         }
         .padding(.horizontal, 24)
         .frame(maxWidth: .infinity)
@@ -49,16 +49,6 @@ public struct OnboardingFeatureView: View {
         .foregroundStyle(loginMethod.foregroundColor)
         .clipShape(.rect(cornerRadius: 10))
     }
-}
-
-// MARK: - Preview
-
-#Preview {
-    OnboardingFeatureView(
-        store: Store(initialState: OnboardingFeature.State(), reducer: {
-            OnboardingFeature()
-        })
-    )
 }
 
 extension SocialLoginMethod {

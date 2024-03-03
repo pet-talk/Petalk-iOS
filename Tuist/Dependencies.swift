@@ -6,12 +6,15 @@ let dependencies = Dependencies(
     carthage: nil,
     swiftPackageManager: SwiftPackageManagerDependencies(
         Package.SPM.allCases.map(\.package),
+        productTypes: [
+            "Dependencies": .framework,
+            "CombineSchedulers": .framework,
+            "ConcurrencyExtras": .framework,
+            "XCTestDynamicOverlay": .framework,
+//            "TCACoordinators": .framework,
+        ],
         baseSettings: .settings(
-            configurations: [
-                .debug(name: .dev),
-                .debug(name: .stage),
-                .release(name: .prod)
-            ]
+            configurations: .default
         )
     ),
     platforms: [.iOS]

@@ -5,6 +5,6 @@ import ProjectDescriptionHelpers
 let project = Project.module(
     name: ModulePaths.Shared.SwiftUIUtility.rawValue,
     targets: [
-        .implements(module: .shared(.SwiftUIUtility), product: .staticLibrary)
+        .implements(module: .shared(.SwiftUIUtility))
     ]
 )

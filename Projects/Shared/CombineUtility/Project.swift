@@ -5,6 +5,6 @@ import ProjectDescriptionHelpers
 let project = Project.module(
     name: ModulePaths.Shared.CombineUtility.rawValue,
     targets: [
-        .implements(module: .shared(.CombineUtility), product: .staticLibrary)
+        .implements(module: .shared(.CombineUtility))
     ]
 )

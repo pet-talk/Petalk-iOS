@@ -22,7 +22,7 @@ public extension Target {
 public extension Target {
     static func implements(
         module: ModulePaths,
-        product: Product = .framework,
+        product: Product = .staticFramework,
         spec: TargetSpec
     ) -> Target {
         spec.with {
@@ -33,7 +33,7 @@ public extension Target {
     
     static func implements(
         module: ModulePaths,
-        product: Product = .framework,
+        product: Product = .staticFramework,
         resources: ResourceFileElements? = nil,
         dependencies: [TargetDependency] = []
     ) -> Target {

@@ -1,5 +1,3 @@
-
-
 import SwiftUI
 
 import ComposableArchitecture
@@ -26,17 +24,4 @@ public struct HomeFeatureView: View {
         .finish()
     }
   }
-}
-
-// MARK: - Preview
-
-#Preview {
-  HomeFeatureView(
-    store: .init(
-      initialState: .init(),
-      reducer: {
-          HomeFeature()
-      }
-    )
-  )
 }

@@ -6,7 +6,7 @@ let project = Project.module(
     name: ModulePaths.Core.Network.rawValue,
     targets: [
         .interface(module: .core(.Network)),
-        .implements(module: .core(.Network), product: .staticLibrary, dependencies: [
+        .implements(module: .core(.Network), dependencies: [
             .core(target: .Network, type: .interface),
             .SPM.Alamofire,
         ]),

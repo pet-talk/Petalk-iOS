@@ -11,7 +11,7 @@ public struct ProjectEnvironment {
 
 public let env = ProjectEnvironment(
     name: "petalk-ios",
-    organizationName: "com.petalk",
+    organizationName: "Petalk-Project",
     destinations: [.iPhone, .iPad],
     deploymentTargets: .iOS("15.0"),
     baseSetting: [:]

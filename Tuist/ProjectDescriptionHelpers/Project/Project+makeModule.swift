@@ -40,11 +40,7 @@ public extension Project {
 
         var configurations = configurations
         if configurations.isEmpty {
-            configurations = [
-                .debug(name: .dev, xcconfig: .shared),
-                .debug(name: .stage, xcconfig: .shared),
-                .release(name: .prod, xcconfig: .shared)
-            ]
+            configurations = .default
         }
 
         let settings: Settings = .settings(

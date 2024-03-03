@@ -5,6 +5,6 @@ import ProjectDescriptionHelpers
 let project = Project.module(
     name: ModulePaths.Shared.Logger.rawValue,
     targets: [
-        .implements(module: .shared(.Logger), product: .staticLibrary)
+        .implements(module: .shared(.Logger))
     ]
 )

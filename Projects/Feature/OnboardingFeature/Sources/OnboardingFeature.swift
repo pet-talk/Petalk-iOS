@@ -1,8 +1,7 @@
 import ComposableArchitecture
 
-import AuthClient
+import AuthDomainInterface
 import Logger
-import ThirdParty
 
 @Reducer
 public struct OnboardingFeature {
