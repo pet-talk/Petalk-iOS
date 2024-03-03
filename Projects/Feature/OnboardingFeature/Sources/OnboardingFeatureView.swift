@@ -18,7 +18,7 @@ public struct OnboardingFeatureView: View {
     public var body: some View {
         VStack(alignment: .center, content: {
             Spacer()
-            Image(asset: R.Assets.logo)
+            R.Assets.logo
             Spacer()
             
             VStack(spacing: 8, content: {
@@ -33,7 +33,7 @@ public struct OnboardingFeatureView: View {
     
     private func loginButton(loginMethod: SocialLoginMethod) -> some View {
         HStack(alignment: .center, content: {
-            Image(asset: loginMethod.icon)
+            loginMethod.icon
                 .frame(width: 20, height: 20, alignment: .top)
             Spacer()
             Text("\(loginMethod.title)로 시작하기")
@@ -63,7 +63,7 @@ extension SocialLoginMethod {
         }
     }
     
-    fileprivate var icon: DesignSystemImages {
+    fileprivate var icon: Image {
         switch self {
         case .kakao:
             return R.Assets.kakaoSymbol
@@ -77,20 +77,20 @@ extension SocialLoginMethod {
     fileprivate var backgroundColor: Color {
         switch self {
         case .kakao:
-            return R.Colors.bgKakao.swiftUIColor
+            return R.Colors.bgKakao
         case .naver:
-            return R.Colors.bgNaver.swiftUIColor
+            return R.Colors.bgNaver
         case .apple:
-            return R.Colors.textDark900.swiftUIColor
+            return R.Colors.textDark900
         }
     }
     
     fileprivate var foregroundColor: Color {
         switch self {
         case .kakao:
-            return R.Colors.textDark900.swiftUIColor
+            return R.Colors.textDark900
         case .naver, .apple:
-            return R.Colors.textWhite.swiftUIColor
+            return R.Colors.textWhite
         }
     }
 }

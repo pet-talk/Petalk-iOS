@@ -22,5 +22,8 @@ let project = Project.module(
         .demo(module: .userInterface(.DesignSystem), dependencies: [
             .userInterface(target: .DesignSystem)
         ])
+    ],
+    resourceSynthesizers: [
+        .custom(name: "Assets", parser: .assets, extensions: ["xcassets"])
     ]
 )
