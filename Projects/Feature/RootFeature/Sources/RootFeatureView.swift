@@ -14,21 +14,27 @@ public struct RootFeatureView: View {
     public init(
         store: StoreOf<RootFeature> = .init(
             initialState: RootFeature.State.onboarding(.init()),
-            reducer: {}
+            reducer: {
+                RootFeature
+                    .body
+//                    ._printChanges()
+            }
         )
     ) {
         self.store = store
     }
     
     public var body: some View {
-        switch store.case {
-        case let .onboarding(store):
-            NavigationView {
-                OnboardingFeatureView(store: store)
-            }
-        case let .mainTab(store):
-            NavigationView {
-                MainTabFeatureView(store: store)
+        WithPerceptionTracking {
+            switch store.case {
+            case let .onboarding(store):
+                NavigationView {
+                    OnboardingFeatureView(store: store)
+                }
+            case let .mainTab(store):
+                NavigationView {
+                    MainTabFeatureView(store: store)
+                }
             }
         }
     }

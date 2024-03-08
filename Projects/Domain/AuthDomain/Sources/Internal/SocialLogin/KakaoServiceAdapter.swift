@@ -1,16 +1,14 @@
 import Foundation
-import Combine
 
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
 
-import AuthDomainInterface
 import FoundationUtility
 import Logger
 
 extension SocialLoginMethod {
-    fileprivate static let kakaoAppKey: String = Bundle.main.value(for: "KakaoAppKey")
+    fileprivate static let kakaoAppKey: String = Bundle.main.string(for: "KakaoAppKey")
 }
 
 final class KakaoServiceAdapter: LoginService {
@@ -20,24 +18,23 @@ final class KakaoServiceAdapter: LoginService {
     }
     
     @MainActor
-    func requestLogin() async throws -> AuthDomainInterface.SignIn {
-        Log.debug(#function, "Kakao", state: .REQUEST)
-        
-        return try await withCheckedThrowingContinuation { continuation in
+    func requestLogin() async throws -> SignIn {
+        Log.debug("Kakao Start")
+        return try await withCheckedThrowingContinuation { [processLogin] continuation in
             if UserApi.isKakaoTalkLoginAvailable() {
                 UserApi.shared.loginWithKakaoTalk { (token, error) in
-                    self.processLogin(continuation: continuation, token: token, error: error)
+                    processLogin(continuation, token, error)
                 }
             } else {
                 UserApi.shared.loginWithKakaoAccount { token, error in
-                    self.processLogin(continuation: continuation, token: token, error: error)
+                    processLogin(continuation, token, error)
                 }
             }
         }
     }
     
-    func requestMe() async throws -> AuthDomainInterface.User {
-        Log.debug(#function, "Kakao", state: .REQUEST)
+    func requestMe() async throws -> User {
+        Log.debug("Kakao Start")
         return try await withCheckedThrowingContinuation { continuation in
             UserApi.shared.me { user, error in
                 if let error {
@@ -50,11 +47,11 @@ final class KakaoServiceAdapter: LoginService {
                     continuation.resume(throwing: error)
                     return
                 } else {
-                    Log.debug(#function, "Success", state: .COMPLETE)
-                    let user = AuthDomainInterface.User(
-                        userId: user?.id?.string,
-                        nickname: user?.kakaoAccount?.profile?.nickname,
-                        userAuthority: ""
+                    Log.debug("Kakao Success")
+                    let user = User(
+                        userId: user?.id?.string ?? "",
+                        nickname: user?.kakaoAccount?.profile?.nickname ?? "",
+                        userAuthority: .petOwner
                     )
                     continuation.resume(returning: user)
                     return
@@ -64,7 +61,7 @@ final class KakaoServiceAdapter: LoginService {
     }
     
     func requestLogout() async throws {
-        Log.debug(#function, "Kakao", state: .REQUEST)
+        Log.debug("Kakao Start")
         return try await withCheckedThrowingContinuation { continuation in
             UserApi.shared.logout { error in
                 if let error {
@@ -72,7 +69,7 @@ final class KakaoServiceAdapter: LoginService {
                     continuation.resume(throwing: error)
                     return
                 } else {
-                    Log.debug(#function, "Success", state: .COMPLETE)
+                    Log.debug("Kakao Success")
                     continuation.resume(returning: ())
                     return
                 }
@@ -81,7 +78,7 @@ final class KakaoServiceAdapter: LoginService {
     }
     
     private func processLogin(
-        continuation: CheckedContinuation<AuthDomainInterface.SignIn, Error>,
+        continuation: CheckedContinuation<SignIn, Error>,
         token: OAuthToken?,
         error: Error?
     ) {
@@ -95,8 +92,8 @@ final class KakaoServiceAdapter: LoginService {
             continuation.resume(throwing: error)
             return
         } else {
-            Log.debug(#function, "Success", state: .COMPLETE)
-            let signIn = AuthDomainInterface.SignIn(
+            Log.debug("Kakao Success")
+            let signIn = SignIn(
                 accessToken: token!.accessToken,
                 refreshToken: token!.refreshToken
             )

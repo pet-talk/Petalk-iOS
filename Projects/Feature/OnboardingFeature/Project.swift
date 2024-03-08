@@ -11,7 +11,7 @@ let project = Project.module(
         .implements(module: .feature(.OnboardingFeature), dependencies: [
             .feature(target: .OnboardingFeature, type: .interface),
             .feature(target: .BaseFeature),
-            .domain(target: .AuthDomain, type: .interface),
+            .domain(target: .AuthDomain),
         ]),
         .testing(module: .feature(.OnboardingFeature), dependencies: [
             .feature(target: .OnboardingFeature, type: .interface)

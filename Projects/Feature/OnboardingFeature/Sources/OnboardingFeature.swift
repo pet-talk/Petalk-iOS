@@ -1,6 +1,6 @@
 import ComposableArchitecture
 
-import AuthDomainInterface
+import AuthDomain
 import Logger
 
 @Reducer
@@ -20,15 +20,16 @@ public struct OnboardingFeature {
         case alert(PresentationAction<Alert>)
         case view(View)
         
-        public enum Alert: Equatable, Sendable {}
+        public enum Alert: Equatable {}
     }
     
     public enum View: BindableAction {
         case binding(BindingAction<State>)
-        case loginButtonTapped
+        case loginButtonTapped(SocialLoginMethod)
     }
     
     @Dependency(\.authClient) var authClient
+    @Dependency(\.authClient.socialLogin) var socialLoginClient
     
     public init() {}
     
@@ -39,27 +40,27 @@ public struct OnboardingFeature {
             case .view(.binding):
                 return .none
                 
-            case .view(.loginButtonTapped):
+            case let .view(.loginButtonTapped(loginMethod)):
                 state.isLoading = true
-                return .run { [loginMethod = state.loginMethod] send in
-                    guard let loginMethod else { return }
-                    
+                return .run { send in
                     await send(.loginResponse(
                         Result {
-                            let user = try await authClient.requestLogin(loginMethod: loginMethod)
-                            Log.debug(user)
+                            let signIn = try await socialLoginClient.requestLogin(loginMethod)
+                            let user = try await authClient.authenticate(loginMethod: loginMethod, accessToken: signIn.accessToken)
+                            
                             return user
                         }
                     ))
-                    
                 }
             case let .loginResponse(.success(response)):
                 state.isLoading = false
+                Log.debug(response)
                 
                 return .none
             case let .loginResponse(.failure(error)):
                 state.alert = AlertState { TextState(error.localizedDescription) }
                 state.isLoading = false
+                Log.error(error)
                 return .none
             case .alert:
                 return .none

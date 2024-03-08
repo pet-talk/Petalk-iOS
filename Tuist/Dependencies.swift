@@ -7,10 +7,11 @@ let dependencies = Dependencies(
     swiftPackageManager: SwiftPackageManagerDependencies(
         Package.SPM.allCases.map(\.package),
         productTypes: [
-            "Dependencies": .framework,
-            "CombineSchedulers": .framework,
-            "ConcurrencyExtras": .framework,
-            "XCTestDynamicOverlay": .framework,
+            "Dependencies": .framework, // TCA, TCACoordinators
+            "CombineSchedulers": .framework, // TCA, TCACoordinators
+            "ConcurrencyExtras": .framework, // TCA, TCACoordinators
+            "XCTestDynamicOverlay": .framework, // TCA, TCACoordinators
+            "Alamofire": .framework, // Alamofire, KakaoSDK
 //            "TCACoordinators": .framework,
         ],
         baseSettings: .settings(

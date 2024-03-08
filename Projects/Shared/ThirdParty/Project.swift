@@ -14,7 +14,7 @@ let project = Project.module(
                 .shared(target: .FoundationUtility),
                 .shared(target: .CombineUtility),
                 .shared(target: .SwiftUIUtility),
-                .shared(target: .Logger),
+                .shared(target: .Logger)
             ]
         )
     ]

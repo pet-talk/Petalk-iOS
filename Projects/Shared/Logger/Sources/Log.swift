@@ -1,73 +1,112 @@
 import Foundation
-import OSLog
 
 public struct Log {
-    public enum FuncState: String {
-        case NONE = ""
-        case REQUEST
-        case COMPLETE
-    }
     
-    enum Level {
+    private enum Level {
         case debug
         case info
         case error
         case warning
         
-        fileprivate var osLogType: OSLogType {
+        var icon: String {
             switch self {
             case .debug:
-                return .debug
+                return "💬"
             case .info:
-                return .info
+                return "ℹ️"
             case .error:
-                return .error
+                return "‼️"
             case .warning:
-                return .default
+                return "🔥"
             }
         }
     }
     
-    private static var category: String {
-        String(describing: Self.self)
+    private static var timeStamp: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+        return dateFormatter.string(from: Date())
     }
     
-    private static func log(_ messages: Any..., level: Level) {
-        let logger = Logger(subsystem: OSLog.subsystem, category: category)
-        let logMessage: String = messages.map({ String(describing: $0) }).joined(separator: " ")
-        switch level {
-        case .debug:
-            logger.debug("\(logMessage, privacy: .public)")
-        case .info:
-            logger.info("\(logMessage, privacy: .public)")
-        case .error:
-            logger.error("\(logMessage, privacy: .public)")
-        case .warning:
-            logger.log("\(logMessage, privacy: .public)")
-        }
-    }
-}
-
-// MARK: - utils
-
-extension Log {
-    public static func debug(_ messages: Any..., state: Log.FuncState = .NONE) {
-        log(state.rawValue, messages, level: .debug)
+    public static func debug(
+        _ items: Any...,
+        separator: String = " ",
+        terminator: String = "\n",
+        file: String = #file,
+        function: String = #function
+    ) {
+        let prefix = self.makeLogPrefix(
+            file: file,
+            function: function,
+            level: .debug
+        )
+        
+        print(prefix)
+        print(items, separator: separator, terminator: terminator)
+        print()
     }
     
-    public static func info(_ messages: Any...) {
-        log(messages, level: .info)
+    public static func info(
+        _ items: Any...,
+        separator: String = " ",
+        terminator: String = "\n",
+        file: String = #file,
+        function: String = #function
+    ) {
+        let prefix = self.makeLogPrefix(
+            file: file,
+            function: function,
+            level: .info
+        )
+        
+        print(prefix)
+        print(items, separator: separator, terminator: terminator)
+        print()
     }
     
-    public static func warning(_ messages: Any...) {
-        log(messages, level: .warning)
+    public static func error(
+        _ items: Any...,
+        separator: String = " ",
+        terminator: String = "\n",
+        file: String = #file,
+        function: String = #function
+    ) {
+        let prefix = self.makeLogPrefix(
+            file: file,
+            function: function,
+            level: .error
+        )
+        
+        print(prefix)
+        print(items, separator: separator, terminator: terminator)
+        print()
     }
     
-    public static func error(_ messages: Any...) {
-        log(messages, level: .error)
+    public static func warning(
+        _ items: Any...,
+        separator: String = " ",
+        terminator: String = "\n",
+        file: String = #file,
+        function: String = #function
+    ) {
+        let prefix = self.makeLogPrefix(
+            file: file,
+            function: function,
+            level: .warning
+        )
+        
+        print(prefix)
+        print(items, separator: separator, terminator: terminator)
+        print()
     }
-}
-
-extension OSLog {
-    static let subsystem = Bundle.main.bundleIdentifier!
+    
+    private static func makeLogPrefix(
+        file: String,
+        function: String,
+        level: Level
+    ) -> String {
+        let fileName = file.components(separatedBy: "/").last ?? ""
+        
+        return "[\(level.icon)][\(self.timeStamp)][\(fileName)][\(function)]"
+    }
 }

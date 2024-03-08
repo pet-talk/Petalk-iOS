@@ -2,7 +2,7 @@ import SwiftUI
 
 import ComposableArchitecture
 
-import AuthDomainInterface
+import AuthDomain
 import DesignSystem
 
 // MARK: - View
@@ -29,18 +29,18 @@ public struct OnboardingFeatureView: View {
             .padding(.horizontal, 24)
             .padding(.bottom, 100)
         })
+        .background(Color.white)
     }
     
     private func loginButton(loginMethod: SocialLoginMethod) -> some View {
-        HStack(alignment: .center, content: {
+        Button {
+            send(.loginButtonTapped(loginMethod))
+        } label: {
             loginMethod.icon
                 .frame(width: 20, height: 20, alignment: .top)
             Spacer()
             Text("\(loginMethod.title)로 시작하기")
             Spacer()
-        })
-        .onTapGesture {
-            send(.loginButtonTapped)
         }
         .padding(.horizontal, 24)
         .frame(maxWidth: .infinity)

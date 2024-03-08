@@ -22,6 +22,5 @@ public enum RootFeature {
         .ifCaseLet(\.mainTab, action: \.mainTab) {
             MainTabFeature()
         }
-        ._printChanges()
     }
 }

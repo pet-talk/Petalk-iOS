@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol LoginService: AnyObject {
+protocol LoginService {
     func requestLogin() async throws -> SignIn
     func requestMe() async throws -> User
     func requestLogout() async throws

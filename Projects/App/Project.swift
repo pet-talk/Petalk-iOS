@@ -25,7 +25,8 @@ let targets: [Target] = [
         resources: ["Resources/**"],
         scripts: scripts,
         dependencies: [
-            .feature(target: .RootFeature)
+            .feature(target: .RootFeature),
+            .domain(target: .AuthDomain),
         ],
         settings: settings
     )

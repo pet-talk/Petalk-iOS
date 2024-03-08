@@ -1,7 +1,7 @@
 import Foundation
 
 public extension Bundle {
-    func value(for key: String) -> String {
-        object(forInfoDictionaryKey: key) as? String ?? ""
+    func string(for key: String) -> String {
+        infoDictionary?[key] as? String ?? ""
     }
 }

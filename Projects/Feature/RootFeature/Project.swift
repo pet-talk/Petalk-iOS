@@ -13,7 +13,7 @@ let project = Project.module(
             .feature(target: .BaseFeature),
             .feature(target: .OnboardingFeature),
             .feature(target: .MainTabFeature),
-            .core(target: .Network, type: .interface),
+            .core(target: .Networking),
         ]),
         .demo(module: .feature(.RootFeature), dependencies: [
             .feature(target: .RootFeature)
