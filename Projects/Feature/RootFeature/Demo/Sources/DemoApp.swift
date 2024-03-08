@@ -8,10 +8,15 @@ import RootFeature
 struct DemoApp: App {
     var body: some Scene {
         WindowGroup {
-            VStack {
-                Text("Hello, RootFeature!")
-            }
-            .padding()
+            RootCoordinatorView(
+                store: .init(
+                    initialState: RootCoordinator.State(),
+                    reducer: {
+                        RootCoordinator()
+                            ._printChanges()
+                    }
+                )
+            )
         }
     }
 }
@@ -19,11 +24,11 @@ struct DemoApp: App {
 // MARK: - Preview
 
 #Preview {
-    RootFeatureView(
+    RootCoordinatorView(
         store: .init(
-            initialState: RootFeature.State.onboarding(.init()),
+            initialState: RootCoordinator.State(routes: .init()),
             reducer: {
-                
+                RootCoordinator()
             }
         )
     )

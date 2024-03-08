@@ -52,15 +52,16 @@ public struct OnboardingFeature {
                         }
                     ))
                 }
-            case let .loginResponse(.success(response)):
+            case let .loginResponse(.success(user)):
                 state.isLoading = false
-                Log.debug(response)
+                Log.debug(user)
                 
                 return .none
             case let .loginResponse(.failure(error)):
                 state.alert = AlertState { TextState(error.localizedDescription) }
                 state.isLoading = false
                 Log.error(error)
+                
                 return .none
             case .alert:
                 return .none
@@ -68,7 +69,3 @@ public struct OnboardingFeature {
         }
     }
 }
-
-// 분리가 필요한가?? 고민해보자...
-// requestLogin -> OnboardingFeature??
-// requestMe -> UserFeature??

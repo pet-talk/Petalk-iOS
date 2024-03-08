@@ -102,7 +102,7 @@ public struct TargetSpec: Configurable {
             ),
             coreDataModels: coreDataModels,
             environmentVariables: environmentVariables,
-            launchArguments: launchArguments,
+            launchArguments: (product ?? self.product) == .app ? [.init(name: "IDEPreferLogStreaming", isEnabled: true)] : [],
             additionalFiles: additionalFiles,
             buildRules: buildRules,
             mergedBinaryType: mergedBinaryType,

@@ -11,6 +11,9 @@ public enum RootFeature {
     public static var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onboarding(.loginResponse(.success)):
+                state = .mainTab(.init())
+                return .none
             case .onboarding:
                 return .none
             case .mainTab(_):

@@ -36,12 +36,6 @@ public extension Package {
                     url: "https://github.com/SH-OH/TCACoordinators.git",
                     requirement: .branch("main")
                 )
-//                return .remote(
-//                    url: "https://github.com/johnpatrickmorgan/TCACoordinators.git",
-//                    requirement: .upToNextMajor(
-//                        from: "0.8.0"
-//                    )
-//                )
             case .KakaoSDK:
                 return .remote(
                     url: "https://github.com/kakao/kakao-ios-sdk",
