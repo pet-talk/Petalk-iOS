@@ -11,16 +11,12 @@ private let DomainTemplate = Template(
     ],
     items: [
         .file(
-            path: .basePath + "/Interfaces/Client/\(nameAttribute).swift",
+            path: .basePath + "/Sources/Public/Client/\(nameAttribute).swift",
             templatePath: "Client.stencil"
         ),
         .file(
-            path: .basePath + "/Interfaces/Client/Live\(nameAttribute).swift",
+            path: .basePath + "/Sources/Public/Client/Live\(nameAttribute).swift",
             templatePath: "LiveClient.stencil"
-        ),
-        .string(
-            path: .basePath + "/Source/Source.swift",
-            contents: "// This is for Tuist\n"
         )
     ]
 )

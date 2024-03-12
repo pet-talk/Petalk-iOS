@@ -10,10 +10,6 @@ private let featureTemplate = Template(
         nameAttribute
     ],
     items: [
-        .string(
-            path: .basePath + "/Interfaces/Interface.swift",
-            contents: "// This is for Tuist\n"
-        ),
         .file(
             path: .basePath + "/Sources/\(nameAttribute).swift",
             templatePath: "Feature.stencil"

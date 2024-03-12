@@ -24,12 +24,17 @@ extension ModulePaths: MicroTargetPathConvertable {
 
 public extension ModulePaths {
     enum Feature: String, MicroTargetPathConvertable {
+        case VetMainTabFeature
+        case MyPageFeature
+        case ConsultationListFeature
+        case CustomerReviewFeature
+        case ConsultingFeature
+        case SearchFeature
         case RootFeature
         case HomeFeature
-        case MainTabFeature
+        case PetOwnerMainTabFeature
         case OnboardingFeature
-        case BaseFeature
-        
+        case BaseFeature   
     }
 }
 
@@ -42,6 +47,7 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Core: String, MicroTargetPathConvertable {
+        case UserDefault
         case Networking
         
     }

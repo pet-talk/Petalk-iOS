@@ -19,9 +19,9 @@ public struct HomeFeatureView: View {
       Text("Hello, HomeFeature!")
     }
     .task {
-      await viewStore
-        .send(.onAppear)
-        .finish()
+//      await viewStore
+//        .send(.onAppear)
+//        .finish()
     }
   }
 }

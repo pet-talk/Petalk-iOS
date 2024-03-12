@@ -3,7 +3,8 @@ import ComposableArchitecture
 import TCACoordinators
 
 import OnboardingFeature
-import MainTabFeature
+import PetOwnerMainTabFeature
+import VetMainTabFeature
 
 public struct RootCoordinatorView: View {
     private let store: StoreOf<RootCoordinator>
@@ -13,18 +14,28 @@ public struct RootCoordinatorView: View {
     }
     
     public var body: some View {
-        TCARouter(store) { store in
-            SwitchStore(store) { _ in
-                CaseLet(
-                    /RootScreen.State.onboarding,
-                     action: RootScreen.Action.onboarding,
-                     then: OnboardingFeatureView.init
-                )
-                CaseLet(
-                    /RootScreen.State.mainTab,
-                     action: RootScreen.Action.mainTab,
-                     then: MainTabFeatureView.init
-                )
+        TCARouter(store) { screen in
+            SwitchStore(screen) { screen in
+                switch screen {
+                case .onboarding:
+                    CaseLet(
+                        /RootScreen.State.onboarding,
+                         action: RootScreen.Action.onboarding,
+                         then: OnboardingFeatureView.init
+                    )
+                case .petOwnerMainTab:
+                    CaseLet(
+                        /RootScreen.State.petOwnerMainTab,
+                         action: RootScreen.Action.petOwnerMainTab,
+                         then: PetOwnerMainTabFeatureView.init
+                    )
+                case .vetMainTab:
+                    CaseLet(
+                        /RootScreen.State.vetMainTab,
+                         action: RootScreen.Action.vetMainTab,
+                         then: VetMainTabFeatureView.init
+                    )
+                }
             }
         }
     }

@@ -5,16 +5,12 @@ import ProjectDescriptionHelpers
 let project = Project.module(
     name: ModulePaths.Feature.OnboardingFeature.rawValue,
     targets: [
-        .interface(module: .feature(.OnboardingFeature), dependencies: [
-            .feature(target: .BaseFeature, type: .interface)
-        ]),
         .implements(module: .feature(.OnboardingFeature), dependencies: [
-            .feature(target: .OnboardingFeature, type: .interface),
             .feature(target: .BaseFeature),
             .domain(target: .AuthDomain),
         ]),
         .testing(module: .feature(.OnboardingFeature), dependencies: [
-            .feature(target: .OnboardingFeature, type: .interface)
+            .feature(target: .OnboardingFeature)
         ]),
         .tests(module: .feature(.OnboardingFeature), dependencies: [
             .feature(target: .OnboardingFeature, type: .testing)

@@ -8,6 +8,7 @@ let project = Project.module(
         .implements(module: .domain(.BaseDomain), product: .framework, dependencies: [
             .shared(target: .ThirdParty),
             .core(target: .Networking),
+            .core(target: .UserDefault),
         ])
     ]
 )

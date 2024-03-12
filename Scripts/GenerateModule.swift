@@ -25,12 +25,12 @@ enum LayerType: String {
         }
     }
   
-  var templatePrefix: String {
+  var templateName: String {
     switch self {
     case .feature, .domain:
       return rawValue
     case .core, .userInterface, .shared:
-      return ""
+      return "Template"
     }
   }
 }
@@ -42,6 +42,15 @@ enum MicroTargetType: String {
     case unitTest = "Tests"
     case uiTest = "UITests"
     case demo = "Demo"
+}
+
+struct ModuleInfo {
+    let moduleName: String
+    let hasInterface: Bool
+    let hasTesting: Bool
+    let hasUnitTests: Bool
+    let hasUITests: Bool
+    let hasDemo: Bool
 }
 
 let fileManager = FileManager.default
@@ -153,7 +162,7 @@ func makeProjectDirectory() {
 func makeSourceScaffold() {
     _ = try? bash.run(
         commandName: "tuist",
-        arguments: ["scaffold", "\(layer.templatePrefix)Template", "--name", "\(moduleName)", "--layer", "\(layer.rawValue)"]
+        arguments: ["scaffold", "\(layer.templateName)", "--name", "\(moduleName)", "--layer", "\(layer.rawValue)"]
     )
 }
 
@@ -195,6 +204,62 @@ func updateFileContent(
     try? writeHandle.close()
 }
 
+func makeModuleInfo() -> ModuleInfo {
+    print("Enter module name", terminator: " : ")
+    let moduleInput = readLine()
+    guard let moduleNameUnwrapping = moduleInput, !moduleNameUnwrapping.isEmpty else {
+        print("Module name is empty")
+        exit(1)
+    }
+    let moduleName = moduleNameUnwrapping
+    print("Module name: \(moduleName)\n")
+
+    print("This module has a 'Interface' Target? (y\\n, default = n)", terminator: " : ")
+    let hasInterface = readLine()?.lowercased() == "y"
+
+    print("This module has a 'Testing' Target? (y\\n, default = n)", terminator: " : ")
+    let hasTesting = readLine()?.lowercased() == "y"
+
+    print("This module has a 'UnitTests' Target? (y\\n, default = n)", terminator: " : ")
+    let hasUnitTests = readLine()?.lowercased() == "y"
+
+    print("This module has a 'UITests' Target? (y\\n, default = n)", terminator: " : ")
+    let hasUITests = readLine()?.lowercased() == "y"
+
+    print("This module has a 'Demo' Target? (y\\n, default = n)", terminator: " : ")
+    let hasDemo = readLine()?.lowercased() == "y"
+    
+    return ModuleInfo(
+        moduleName: moduleName,
+        hasInterface: hasInterface,
+        hasTesting: hasTesting,
+        hasUnitTests: hasUnitTests,
+        hasUITests: hasUITests,
+        hasDemo: hasDemo
+    )
+}
+
+func checkModuleInfo() -> Bool {
+    print("")
+    print("------------------------------------------------------------------------------------------------------------------------")
+    print("Is this the correct module information you are generating? (y\\n, default = y)")
+    print("Layer: \(layer.rawValue)")
+    print("Module name: \(moduleName)")
+    print("interface: \(hasInterface), testing: \(hasTesting), unitTests: \(hasUnitTests), uiTests: \(hasUITests), demo: \(hasDemo)")
+    print("------------------------------------------------------------------------------------------------------------------------")
+    
+    guard var checkInput = readLine() else {
+        exit(1)
+    }
+    
+    if checkInput.isEmpty {
+        checkInput = "y"
+    }
+    
+    let isCorrect = checkInput.lowercased() == "y"
+    return !isCorrect
+}
+
 // MARK: - Starting point
 
 print("Enter layer name\n(Feature(or f) | Domain(or d) | Core(or c) | UserInterface(or u) | Shared(or s))", terminator: " : ")
@@ -210,40 +275,26 @@ else {
 let layer = layerUnwrapping
 print("Layer: \(layer.rawValue)\n")
 
-print("Enter module name", terminator: " : ")
-let moduleInput = readLine()
-guard let moduleNameUnwrapping = moduleInput, !moduleNameUnwrapping.isEmpty else {
-    print("Module name is empty")
-    exit(1)
+var moduleName: String = ""
+var hasInterface: Bool = false
+var hasTesting: Bool = false
+var hasUnitTests: Bool = false
+var hasUITests: Bool = false
+var hasDemo: Bool = false
+
+repeat {
+    let moduleInfo = makeModuleInfo()
+    moduleName = moduleInfo.moduleName
+    hasInterface = moduleInfo.hasInterface
+    hasTesting = moduleInfo.hasTesting
+    hasUnitTests = moduleInfo.hasUnitTests
+    hasUITests = moduleInfo.hasUITests
+    hasDemo = moduleInfo.hasDemo
 }
-var moduleName = moduleNameUnwrapping
-print("Module name: \(moduleName)\n")
-
-print("This module has a 'Interface' Target? (y\\n, default = n)", terminator: " : ")
-let hasInterface = readLine()?.lowercased() == "y"
-
-print("This module has a 'Testing' Target? (y\\n, default = n)", terminator: " : ")
-let hasTesting = readLine()?.lowercased() == "y"
-
-print("This module has a 'UnitTests' Target? (y\\n, default = n)", terminator: " : ")
-let hasUnitTests = readLine()?.lowercased() == "y"
-
-print("This module has a 'UITests' Target? (y\\n, default = n)", terminator: " : ")
-let hasUITests = readLine()?.lowercased() == "y"
-
-print("This module has a 'Demo' Target? (y\\n, default = n)", terminator: " : ")
-let hasDemo = readLine()?.lowercased() == "y"
-
-print("")
+while checkModuleInfo()
 
 registerModuleDependency()
 
-print("")
-print("------------------------------------------------------------------------------------------------------------------------")
-print("Layer: \(layer.rawValue)")
-print("Module name: \(moduleName)")
-print("interface: \(hasInterface), testing: \(hasTesting), unitTests: \(hasUnitTests), uiTests: \(hasUITests), demo: \(hasDemo)")
-print("------------------------------------------------------------------------------------------------------------------------")
 print("✅ Module is created successfully!")
 
 // MARK: - Bash

@@ -21,7 +21,13 @@ struct DemoApp: App {
 #Preview {
     MainTabFeatureView(
         store: .init(
-            initialState: .init(),
+            initialState: .init(
+                user: .init(
+                    userId: "preview_userId_1",
+                    nickname: "preview_nickname_1",
+                    userAuthority: .petOwner
+                )
+            ),
             reducer: {
                 MainTabFeature()
             }

@@ -2,6 +2,7 @@ import ComposableArchitecture
 
 import AuthDomain
 import Logger
+import UserDefault
 
 @Reducer
 public struct OnboardingFeature {
@@ -56,11 +57,17 @@ public struct OnboardingFeature {
                 state.isLoading = false
                 Log.debug(user)
                 
+                UserDefaultClient.userId = user.userId
+                UserDefaultClient.nickname = user.nickname
+                UserDefaultClient.userAuthority = user.userAuthority.rawValue
+                
                 return .none
             case let .loginResponse(.failure(error)):
                 state.alert = AlertState { TextState(error.localizedDescription) }
                 state.isLoading = false
                 Log.error(error)
+                
+                UserDefaultClient.deleteUserInfo()
                 
                 return .none
             case .alert:

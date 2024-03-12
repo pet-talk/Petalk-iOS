@@ -1,7 +1,7 @@
 import Foundation
 
-public struct User {
-    public enum Authority {
+public struct User: Hashable {
+    public enum Authority: String, Hashable {
         case petOwner
         case vet
     }

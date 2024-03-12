@@ -5,15 +5,11 @@ import ProjectDescriptionHelpers
 let project = Project.module(
     name: ModulePaths.Feature.RootFeature.rawValue,
     targets: [
-        .interface(module: .feature(.RootFeature), dependencies: [
-            .feature(target: .BaseFeature, type: .interface)
-        ]),
         .implements(module: .feature(.RootFeature), dependencies: [
-            .feature(target: .RootFeature, type: .interface),
             .feature(target: .BaseFeature),
             .feature(target: .OnboardingFeature),
-            .feature(target: .MainTabFeature),
-            .core(target: .Networking),
+            .feature(target: .PetOwnerMainTabFeature),
+            .feature(target: .VetMainTabFeature),
         ]),
         .demo(module: .feature(.RootFeature), dependencies: [
             .feature(target: .RootFeature)

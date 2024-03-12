@@ -11,10 +11,21 @@ struct PetalkApp: App {
     
     var body: some Scene {
         WindowGroup {
-            RootFeatureView()
-                .onOpenURL(perform: { url in
-                    socialLogin.openURL(url: url)
-                })
+            RootCoordinatorView(
+                store: .init(
+                    initialState: RootCoordinator.State(),
+                    reducer: {
+                        RootCoordinator()
+                    },
+                    withDependencies: {
+                        $0.authClient = .testValue
+                        $0.authClient.socialLogin = .testValue
+                    }
+                )
+            )
+            .onOpenURL(perform: { url in
+                socialLogin.openURL(url: url)
+            })
         }
     }
 }
