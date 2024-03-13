@@ -37,6 +37,7 @@ public struct RootCoordinator {
                 )]
                 
             case .routeAction(_, .onboarding):
+                
                 state.routes = [.root(
                     .onboarding(.init()),
                     embedInNavigationView: true

@@ -14,6 +14,7 @@ let project = Project.module(
                 ]),
                 dependencies: [
                     .SPM.Alamofire,
+                    .shared(target: .ThirdParty),
                 ]
             )
         ),

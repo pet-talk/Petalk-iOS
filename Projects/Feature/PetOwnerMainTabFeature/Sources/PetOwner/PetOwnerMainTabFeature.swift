@@ -20,7 +20,6 @@ public struct PetOwnerMainTabFeature {
         public init() {}
     }
     
-    // TODO: action을 PetOwnerAction, VetAction 으로 분리.
     public enum Action {
         case home(HomeFeature.Action)
         case search(SearchFeature.Action)
@@ -28,13 +27,6 @@ public struct PetOwnerMainTabFeature {
         case myPage(MyPageFeature.Action)
         case selectTab(Tab.PetOwner)
     }
-    
-//    public enum VetAction {
-//        case homeTab(HomeFeature.Action)
-//        case customerReviewTab(CustomReviewFeature.Action)
-//        case consultationListTab(ConsultationListFeature.Action)
-//        case myPageTab(MyPageFeature.Action)
-//    }
     
     public init() {}
     
