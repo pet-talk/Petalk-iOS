@@ -8,10 +8,10 @@ import UserDefault
 public struct OnboardingFeature {
     @ObservableState
     public struct State: Equatable {
-        public var loginMethod: SocialLoginMethod?
-        public var isLoading: Bool = false
+        var loginMethod: SocialLoginMethod?
+        var isLoading: Bool = false
         
-        @Presents public var alert: AlertState<Action.Alert>?
+        @Presents var alert: AlertState<Action.Alert>?
         
         public init() {}
     }
@@ -34,9 +34,9 @@ public struct OnboardingFeature {
     
     public init() {}
     
-    public var body: some Reducer<State, Action> {
+    public var body: some ReducerOf<Self> {
         BindingReducer(action: \.view)
-        Reduce<State, Action> { state, action in
+        Reduce { state, action in
             switch action {
             case .view(.binding):
                 return .none
@@ -53,6 +53,7 @@ public struct OnboardingFeature {
                         }
                     ))
                 }
+                
             case let .loginResponse(.success(user)):
                 state.isLoading = false
                 Log.debug(user)
@@ -62,6 +63,7 @@ public struct OnboardingFeature {
                 UserDefaultClient.userAuthority = user.userAuthority.rawValue
                 
                 return .none
+                
             case let .loginResponse(.failure(error)):
                 state.alert = AlertState { TextState(error.localizedDescription) }
                 state.isLoading = false
@@ -70,6 +72,7 @@ public struct OnboardingFeature {
                 UserDefaultClient.deleteUserInfo()
                 
                 return .none
+                
             case .alert:
                 return .none
             }

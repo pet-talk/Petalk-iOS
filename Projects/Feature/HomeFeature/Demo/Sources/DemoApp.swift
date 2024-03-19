@@ -8,10 +8,14 @@ import HomeFeature
 struct DemoApp: App {
     var body: some Scene {
         WindowGroup {
-            VStack {
-                Text("Hello, HomeFeature!")
-            }
-            .padding()
+            HomeFeatureView(
+                store: .init(
+                    initialState: HomeFeature.State.initialState,
+                    reducer: {
+                        HomeFeature()
+                    }
+                )
+            )
         }
     }
 }
@@ -21,7 +25,7 @@ struct DemoApp: App {
 #Preview {
     HomeFeatureView(
         store: .init(
-            initialState: .init(),
+            initialState: HomeFeature.State.initialState,
             reducer: {
                 HomeFeature()
             }

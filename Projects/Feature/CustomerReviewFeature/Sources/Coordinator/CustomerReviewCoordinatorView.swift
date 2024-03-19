@@ -3,10 +3,10 @@ import SwiftUI
 import ComposableArchitecture
 import TCACoordinators
 
-public struct HomeCoordinatorView: View {
-    private let store: StoreOf<HomeCoordinator>
+public struct CustomerReviewCoordinatorView: View {
+    private let store: StoreOf<CustomerReviewCoordinator>
     
-    public init(store: StoreOf<HomeCoordinator>) {
+    public init(store: StoreOf<CustomerReviewCoordinator>) {
         self.store = store
     }
     
@@ -16,9 +16,9 @@ public struct HomeCoordinatorView: View {
                 switch screen {
                 case .temp:
                     CaseLet(
-                        /HomeScreen.State.temp,
-                         action: HomeScreen.Action.temp,
-                         then: HomeFeatureView.init
+                        /CustomerReviewScreen.State.temp,
+                         action: CustomerReviewScreen.Action.temp,
+                         then: CustomerReviewFeatureView.init
                     )
                 }
             }

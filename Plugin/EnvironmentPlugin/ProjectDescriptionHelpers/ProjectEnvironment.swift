@@ -12,6 +12,6 @@ public let env = ProjectEnvironment(
     name: "petalk-ios",
     organizationName: "Petalk-Project",
     destinations: [.iPhone, .iPad],
-    deploymentTargets: .iOS("15.0"),
+    deploymentTargets: .iOS("16.0"),
     baseSetting: [:]
 )

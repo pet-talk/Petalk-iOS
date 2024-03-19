@@ -18,8 +18,7 @@ public struct SearchFeatureView: View {
             Text("Hello, SearchFeature!")
         }
         .task {
-            await send(.onAppear)
-                .finish()
+//            send(.onAppear)
         }
     }
 }

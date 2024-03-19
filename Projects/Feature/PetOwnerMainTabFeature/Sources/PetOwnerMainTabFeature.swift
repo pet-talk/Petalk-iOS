@@ -10,14 +10,20 @@ import MyPageFeature
 public struct PetOwnerMainTabFeature {
     @ObservableState
     public struct State: Equatable {
-        var selectedTab: Tab.PetOwner = .home
+        public static let initialState = State(
+            home: .initialState,
+            search: .initialState,
+            consulting: .initialState,
+            myPage: .initialState,
+            selectedTab: .home
+        )
         
-        var home: HomeFeature.State = .init()
-        var search: SearchFeature.State = .init()
-        var consulting: ConsultingFeature.State = .init()
-        var myPage: MyPageFeature.State = .init()
+        var home: HomeFeature.State
+        var search: SearchFeature.State
+        var consulting: ConsultingFeature.State
+        var myPage: MyPageFeature.State
         
-        public init() {}
+        var selectedTab: Tab.PetOwner
     }
     
     public enum Action {
@@ -25,12 +31,17 @@ public struct PetOwnerMainTabFeature {
         case search(SearchFeature.Action)
         case consulting(ConsultingFeature.Action)
         case myPage(MyPageFeature.Action)
-        case selectTab(Tab.PetOwner)
+        case tabSelected(Tab.PetOwner)
+        case delegate(Delegate)
+    }
+    
+    public enum Delegate {
+        case didLogout
     }
     
     public init() {}
     
-    public var body: some Reducer<State, Action> {
+    public var body: some ReducerOf<Self> {
         Scope(state: \.home, action: \.home) {
             HomeFeature()
         }
@@ -44,12 +55,19 @@ public struct PetOwnerMainTabFeature {
             MyPageFeature()
         }
         
-        Reduce<State, Action> { state, action in
+        Reduce { state, action in
             switch action {
+            case .myPage(.delegate(.didLogout)):
+                return .send(.delegate(.didLogout))
+                
             case .home, .search, .consulting, .myPage:
                 return .none
-            case let .selectTab(tab):
+                
+            case let .tabSelected(tab):
                 state.selectedTab = tab
+                return .none
+                
+            case .delegate:
                 return .none
             }
         }

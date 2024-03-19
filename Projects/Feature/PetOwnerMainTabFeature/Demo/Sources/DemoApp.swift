@@ -2,16 +2,22 @@ import SwiftUI
 
 import ComposableArchitecture
 
-import MainTabFeature
+import PetOwnerMainTabFeature
 
 @main
 struct DemoApp: App {
     var body: some Scene {
         WindowGroup {
-            VStack {
-                Text("Hello, MainTabFeature!")
+            WithPerceptionTracking {
+                PetOwnerMainTabFeatureView(
+                    store: .init(
+                        initialState: PetOwnerMainTabFeature.State.initialState,
+                        reducer: {
+                            PetOwnerMainTabFeature()
+                        }
+                    )
+                )
             }
-            .padding()
         }
     }
 }
@@ -19,17 +25,11 @@ struct DemoApp: App {
 // MARK: - Preview
 
 #Preview {
-    MainTabFeatureView(
+    PetOwnerMainTabFeatureView(
         store: .init(
-            initialState: .init(
-                user: .init(
-                    userId: "preview_userId_1",
-                    nickname: "preview_nickname_1",
-                    userAuthority: .petOwner
-                )
-            ),
+            initialState: PetOwnerMainTabFeature.State.initialState,
             reducer: {
-                MainTabFeature()
+                PetOwnerMainTabFeature()
             }
         )
     )

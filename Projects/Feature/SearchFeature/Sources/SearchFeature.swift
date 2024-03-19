@@ -4,8 +4,8 @@ import ComposableArchitecture
 public struct SearchFeature {
     @ObservableState
     public struct State: Equatable {
-
-        public init() {}
+        public static let initialState: State = .init()
+        
     }
 
     public enum Action: ViewAction {
@@ -19,9 +19,9 @@ public struct SearchFeature {
 
     public init() {}
 
-    public var body: some Reducer<State, Action> {
+    public var body: some ReducerOf<Self> {
         BindingReducer(action: \.view)
-        Reduce<State, Action> { state, action in
+        Reduce { state, action in
             switch action {
             case .view:
                 return .none

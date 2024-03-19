@@ -10,14 +10,19 @@ import MyPageFeature
 public struct VetMainTabFeature {
     @ObservableState
     public struct State: Equatable {
-        var selectedTab: Tab.Veterinarian = .home
+        public static let initialState: State = .init(
+            selectedTab: .home,
+            home: .initialState,
+            customerReview: .initialState,
+            consultationList: .initialState,
+            myPage: .initialState
+        )
         
-        var home: HomeFeature.State = .init()
-        var customerReview: CustomerReviewFeature.State = .init()
-        var consultationList: ConsultationListFeature.State = .init()
-        var myPage: MyPageFeature.State = .init()
-        
-        public init() {}
+        var selectedTab: Tab.Veterinarian
+        var home: HomeFeature.State
+        var customerReview: CustomerReviewFeature.State
+        var consultationList: ConsultationListFeature.State
+        var myPage: MyPageFeature.State
     }
     
     public enum Action {
@@ -30,8 +35,8 @@ public struct VetMainTabFeature {
     
     public init() {}
     
-    public var body: some Reducer<State, Action> {
-        Reduce<State, Action> { state, action in
+    public var body: some ReducerOf<Self> {
+        Reduce { state, action in
             switch action {
             case .home, .customerReview, .consultationList, .myPage:
                 return .none

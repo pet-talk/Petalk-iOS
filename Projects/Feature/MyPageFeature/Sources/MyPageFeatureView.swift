@@ -16,10 +16,14 @@ public struct MyPageFeatureView: View {
     public var body: some View {
         List {
             Text("Hello, MyPageFeature!")
+            Button(action: {
+                send(.logoutButtonTapped)
+            }, label: {
+                Text("로그아웃")
+            })
         }
         .task {
-            await send(.onAppear)
-                .finish()
+//            send(.onAppear)
         }
     }
 }

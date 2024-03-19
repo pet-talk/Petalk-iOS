@@ -18,8 +18,7 @@ public struct ConsultingFeatureView: View {
             Text("Hello, ConsultingFeature!")
         }
         .task {
-            await send(.onAppear)
-                .finish()
+//            send(.onAppear)
         }
     }
 }

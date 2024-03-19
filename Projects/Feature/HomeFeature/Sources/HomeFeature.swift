@@ -6,8 +6,8 @@ import BaseFeature
 public struct HomeFeature: Reducer {
     @ObservableState
     public struct State: Equatable {
+        public static let initialState: State = .init()
         
-        public init() {}
     }
     
     public enum Action: ViewAction {
@@ -27,9 +27,9 @@ public struct HomeFeature: Reducer {
     
     public init() {}
     
-    public var body: some Reducer<State, Action> {
+    public var body: some ReducerOf<Self> {
         BindingReducer(action: \.view)
-        Reduce<State, Action> { state, action in
+        Reduce { state, action in
             switch action {
             case .view(.onAppear):
                 return .none

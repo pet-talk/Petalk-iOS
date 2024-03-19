@@ -4,6 +4,7 @@ import ComposableArchitecture
 
 import RootFeature
 import AuthDomain
+import UserDefault
 
 @main
 struct PetalkApp: App {
@@ -11,13 +12,12 @@ struct PetalkApp: App {
     
     var body: some Scene {
         WindowGroup {
-            RootCoordinatorView(
+            RootFeatureView(
                 store: .init(
-                    initialState: RootCoordinator.State(),
+                    initialState: RootFeature.State.onboarding(.init()),
                     reducer: {
-                        RootCoordinator()
-                    },
-                    withDependencies: {
+                        RootFeature.onboarding(.init())
+                    }, withDependencies: {
                         $0.authClient = .testValue
                         $0.authClient.socialLogin = .testValue
                     }

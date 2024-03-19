@@ -2,27 +2,27 @@ import ComposableArchitecture
 import TCACoordinators
 
 @Reducer
-public struct HomeCoordinator {
+public struct CustomerReviewCoordinator {
     public struct State: Equatable, IndexedRouterState {
-        public var routes: [Route<HomeScreen.State>]
+        public var routes: [Route<CustomerReviewScreen.State>]
         
         public init(
-            routes: [Route<HomeScreen.State>] = [
-                .root(.temp(.init()))
+            routes: [Route<CustomerReviewScreen.State>] = [
+                .root(.temp(.initialState))
             ]
         ) {
             self.routes = routes
         }
     }
     public enum Action: IndexedRouterAction {
-        case routeAction(Int, action: HomeScreen.Action)
-        case updateRoutes([Route<HomeScreen.State>])
+        case routeAction(Int, action: CustomerReviewScreen.Action)
+        case updateRoutes([Route<CustomerReviewScreen.State>])
     }
     
     public init() {}
     
     public var body: some ReducerOf<Self> {
-        Reduce<State, Action> { state, action in
+        Reduce { state, action in
             switch action {
             case .routeAction(_, .temp):
                 break
@@ -34,7 +34,7 @@ public struct HomeCoordinator {
             return .none
         }
         .forEachRoute {
-            HomeScreen.temp(.init())
+            CustomerReviewScreen.temp(.init())
         }
     }
 }
