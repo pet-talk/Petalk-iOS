@@ -5,7 +5,7 @@ import DesignSystem
 public enum Tab {}
 
 extension Tab {
-    public enum PetOwner: Hashable {
+    public enum PetParent: Hashable {
         case home
         case search
         case consulting
@@ -20,7 +20,7 @@ extension Tab {
     }
 }
 
-public extension Tab.PetOwner {
+public extension Tab.PetParent {
     var title: String {
         switch self {
         case .home:
@@ -34,7 +34,7 @@ public extension Tab.PetOwner {
         }
     }
     
-    var icon: Image {
+    var icon: DesignSystemImages {
         switch self {
         case .home:
             return R.Assets.iconHome

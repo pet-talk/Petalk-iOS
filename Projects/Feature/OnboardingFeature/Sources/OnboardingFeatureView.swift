@@ -18,7 +18,7 @@ public struct OnboardingFeatureView: View {
     public var body: some View {
         VStack(alignment: .center, content: {
             Spacer()
-            R.Assets.logo
+            Image(R.Assets.logo)
             Spacer()
             
             VStack(spacing: 8, content: {
@@ -36,7 +36,7 @@ public struct OnboardingFeatureView: View {
         Button {
             send(.loginButtonTapped(loginMethod))
         } label: {
-            loginMethod.icon
+            Image(loginMethod.icon)
                 .frame(width: 20, height: 20, alignment: .top)
             Spacer()
             Text("\(loginMethod.title)로 시작하기")
@@ -45,8 +45,8 @@ public struct OnboardingFeatureView: View {
         .padding(.horizontal, 24)
         .frame(maxWidth: .infinity)
         .frame(height: 55)
-        .background(loginMethod.backgroundColor)
-        .foregroundStyle(loginMethod.foregroundColor)
+        .background(Color(loginMethod.backgroundColor))
+        .foregroundStyle(Color(loginMethod.foregroundColor))
         .clipShape(.rect(cornerRadius: 10))
     }
 }
@@ -63,7 +63,7 @@ extension SocialLoginMethod {
         }
     }
     
-    fileprivate var icon: Image {
+    fileprivate var icon: DesignSystemImages {
         switch self {
         case .kakao:
             return R.Assets.kakaoSymbol
@@ -74,7 +74,7 @@ extension SocialLoginMethod {
         }
     }
     
-    fileprivate var backgroundColor: Color {
+    fileprivate var backgroundColor: DesignSystemColors {
         switch self {
         case .kakao:
             return R.Colors.bgKakao
@@ -85,7 +85,7 @@ extension SocialLoginMethod {
         }
     }
     
-    fileprivate var foregroundColor: Color {
+    fileprivate var foregroundColor: DesignSystemColors {
         switch self {
         case .kakao:
             return R.Colors.textDark900

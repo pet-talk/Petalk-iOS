@@ -14,9 +14,9 @@ struct PetalkApp: App {
         WindowGroup {
             RootFeatureView(
                 store: .init(
-                    initialState: RootFeature.State.onboarding(.init()),
+                    initialState: RootFeature.State(),
                     reducer: {
-                        RootFeature.onboarding(.init())
+                        RootFeature()
                     }, withDependencies: {
                         $0.authClient = .testValue
                         $0.authClient.socialLogin = .testValue

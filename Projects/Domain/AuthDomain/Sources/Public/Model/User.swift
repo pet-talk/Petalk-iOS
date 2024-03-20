@@ -2,7 +2,7 @@ import Foundation
 
 public struct User: Hashable {
     public enum Authority: String, Hashable {
-        case petOwner
+        case petParent
         case vet
     }
     

@@ -20,7 +20,7 @@ extension SocialLoginClient: TestDependencyKey {
             return .init(
                 userId: "test_social_userid_1",
                 nickname: "test_social_nickname_❌",
-                userAuthority: .petOwner
+                userAuthority: .petParent
             )
         },
         requestLogout: {

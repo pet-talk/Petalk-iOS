@@ -7,8 +7,9 @@ let project = Project.module(
     targets: [
         .implements(module: .feature(.RootFeature), dependencies: [
             .feature(target: .BaseFeature),
+            .feature(target: .SplashFeature),
             .feature(target: .OnboardingFeature),
-            .feature(target: .PetOwnerMainTabFeature),
+            .feature(target: .PetParentMainTabFeature),
             .feature(target: .VetMainTabFeature),
         ]),
         .demo(module: .feature(.RootFeature), dependencies: [

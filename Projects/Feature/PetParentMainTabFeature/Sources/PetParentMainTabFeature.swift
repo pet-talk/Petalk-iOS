@@ -7,7 +7,7 @@ import ConsultingFeature
 import MyPageFeature
 
 @Reducer
-public struct PetOwnerMainTabFeature {
+public struct PetParentMainTabFeature {
     @ObservableState
     public struct State: Equatable {
         public static let initialState = State(
@@ -23,7 +23,7 @@ public struct PetOwnerMainTabFeature {
         var consulting: ConsultingFeature.State
         var myPage: MyPageFeature.State
         
-        var selectedTab: Tab.PetOwner
+        var selectedTab: Tab.PetParent
     }
     
     public enum Action {
@@ -31,7 +31,7 @@ public struct PetOwnerMainTabFeature {
         case search(SearchFeature.Action)
         case consulting(ConsultingFeature.Action)
         case myPage(MyPageFeature.Action)
-        case tabSelected(Tab.PetOwner)
+        case tabSelected(Tab.PetParent)
         case delegate(Delegate)
     }
     

@@ -40,7 +40,6 @@ public struct Log {
             function: function,
             level: .debug
         )
-        
         print(prefix)
         print(items, separator: separator, terminator: terminator)
         print()

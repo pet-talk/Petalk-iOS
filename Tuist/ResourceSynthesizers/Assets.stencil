@@ -63,11 +63,11 @@ import SwiftUI
 {% if asset.type == "arresourcegroup" %}
 {{accessModifier}} static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{arResourceGroupType}}(name: "{{asset.value}}")
 {% elif asset.type == "color" %}
-{{accessModifier}} static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{colorType}}(name: "{{asset.value}}").swiftUIColor
+{{accessModifier}} static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{colorType}}(name: "{{asset.value}}")
 {% elif asset.type == "data" %}
 {{accessModifier}} static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{dataType}}(name: "{{asset.value}}")
 {% elif asset.type == "image" %}
-{{accessModifier}} static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{imageType}}(name: "{{asset.value}}").swiftUIImage
+{{accessModifier}} static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{imageType}}(name: "{{asset.value}}")
 {% elif asset.type == "symbol" %}
 {{accessModifier}} static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{imageType}}(name: "{{asset.value}}")
 {% elif asset.items and ( forceNamespaces == "true" or asset.isNamespaced == "true" ) %}
@@ -155,7 +155,7 @@ import SwiftUI
     
     @available(iOS 11.0, tvOS 11.0, watchOS 4.0, macOS 10.13, *)
     {{accessModifier}} private(set) lazy var color: Color = {
-        guard let color = Color(asset: self) else {
+        guard let color = Color(self) else {
             fatalError("Unable to load color asset named \\(name).")
         }
         return color
@@ -167,7 +167,7 @@ import SwiftUI
     {{accessModifier}} private(set) var swiftUIColor: SwiftUI.Color {
         get {
             if self._swiftUIColor == nil {
-                self._swiftUIColor = SwiftUI.Color(asset: self)
+                self._swiftUIColor = SwiftUI.Color(self)
             }
             
             return self._swiftUIColor as! SwiftUI.Color
@@ -185,7 +185,7 @@ import SwiftUI
 
 {{accessModifier}} extension {{colorType}}.Color {
     @available(iOS 11.0, tvOS 11.0, watchOS 4.0, macOS 10.13, *)
-    convenience init?(asset: {{colorType}}) {
+    convenience init?(_ asset: {{colorType}}) {
         let bundle = {{bundleToken}}.bundle
 #if os(iOS) || os(tvOS)
         self.init(named: asset.name, in: bundle, compatibleWith: nil)
@@ -200,7 +200,7 @@ import SwiftUI
 #if canImport(SwiftUI)
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
 {{accessModifier}} extension SwiftUI.Color {
-    init(asset: {{colorType}}) {
+    init(_ asset: {{colorType}}) {
         let bundle = {{bundleToken}}.bundle
         self.init(asset.name, bundle: bundle)
     }
@@ -215,7 +215,7 @@ import SwiftUI
 #if os(iOS) || os(tvOS) || os(macOS)
     @available(iOS 9.0, macOS 10.11, *)
     {{accessModifier}} var data: NSDataAsset {
-        guard let data = NSDataAsset(asset: self) else {
+        guard let data = NSDataAsset(self) else {
             fatalError("Unable to load data asset named \\(name).")
         }
         return data
@@ -226,7 +226,7 @@ import SwiftUI
 #if os(iOS) || os(tvOS) || os(macOS)
 @available(iOS 9.0, macOS 10.11, *)
 {{accessModifier}} extension NSDataAsset {
-    convenience init?(asset: {{dataType}}) {
+    convenience init?(_ asset: {{dataType}}) {
         let bundle = {{bundleToken}}.bundle
 #if os(iOS) || os(tvOS)
         self.init(name: asset.name, bundle: bundle)
@@ -266,7 +266,7 @@ import SwiftUI
 #if canImport(SwiftUI)
     @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
     {{accessModifier}} var swiftUIImage: SwiftUI.Image {
-        SwiftUI.Image(asset: self)
+        SwiftUI.Image(self)
     }
 #endif
 }
@@ -274,7 +274,7 @@ import SwiftUI
 {{accessModifier}} extension {{imageType}}.Image {
     @available(macOS, deprecated,
                message: "This initializer is unsafe on macOS, please use the {{imageType}}.image property")
-    convenience init?(asset: {{imageType}}) {
+    convenience init?(_ asset: {{imageType}}) {
 #if os(iOS) || os(tvOS)
         let bundle = {{bundleToken}}.bundle
         self.init(named: asset.name, in: bundle, compatibleWith: nil)
@@ -289,12 +289,12 @@ import SwiftUI
 #if canImport(SwiftUI)
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
 {{accessModifier}} extension SwiftUI.Image {
-    init(asset: {{imageType}}) {
+    init(_ asset: {{imageType}}) {
         let bundle = {{bundleToken}}.bundle
         self.init(asset.name, bundle: bundle)
     }
     
-    init(asset: {{imageType}}, label: Text) {
+    init(_ asset: {{imageType}}, label: Text) {
         let bundle = {{bundleToken}}.bundle
         self.init(asset.name, bundle: bundle, label: label)
     }

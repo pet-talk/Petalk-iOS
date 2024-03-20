@@ -11,11 +11,11 @@ import DesignSystem
 
 // MARK: - View
 
-public struct PetOwnerMainTabFeatureView: View {
+public struct PetParentMainTabFeatureView: View {
     @Perception.Bindable
-    private var store: StoreOf<PetOwnerMainTabFeature>
+    private var store: StoreOf<PetParentMainTabFeature>
     
-    public init(store: StoreOf<PetOwnerMainTabFeature>) {
+    public init(store: StoreOf<PetParentMainTabFeature>) {
         self.store = store
     }
     
@@ -54,18 +54,18 @@ public struct PetOwnerMainTabFeatureView: View {
                 )
                 .tabInfo(.myPage)
             }
-            .tint(R.Colors.textPrimary)
+            .tint(Color(R.Colors.textPrimary))
         }
     }
 }
 
 extension View {
-    func tabInfo(_ tab: Tab.PetOwner) -> some View {
+    func tabInfo(_ tab: Tab.PetParent) -> some View {
         return self
             .tabItem {
                 Label(
                     title: { Text(tab.title) },
-                    icon: { tab.icon }
+                    icon: { Image(tab.icon) }
                 )
             }
             .tag(tab)

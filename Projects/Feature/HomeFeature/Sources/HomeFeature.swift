@@ -1,12 +1,13 @@
 import ComposableArchitecture
 
 import BaseFeature
+import UserDefault
 
 @Reducer
 public struct HomeFeature: Reducer {
     @ObservableState
     public struct State: Equatable {
-        public static let initialState: State = .init()
+        public static let initialState = State()
         
     }
     
@@ -15,13 +16,13 @@ public struct HomeFeature: Reducer {
         case delegate(Delegate)
         
         public enum Delegate: Equatable {
-            case switchTabTo(Tab.PetOwner)
+            case switchTabTo(Tab.PetParent)
         }
     }
     
     public enum View: BindableAction {
         case onAppear
-        case didSwitchTabTo(Tab.PetOwner)
+        case didSwitchTabTo(Tab.PetParent)
         case binding(BindingAction<State>)
     }
     

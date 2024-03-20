@@ -24,7 +24,7 @@ extension UserResponseDTO {
         return .init(
             userId: userId,
             nickname: nickname,
-            userAuthority: userAuthority.uppercased() == "VET" ? .vet : .petOwner
+            userAuthority: userAuthority.uppercased() == "VET" ? .vet : .petParent
         )
     }
 }

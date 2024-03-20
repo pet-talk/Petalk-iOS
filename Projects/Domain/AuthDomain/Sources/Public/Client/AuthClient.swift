@@ -28,7 +28,7 @@ extension AuthClient: TestDependencyKey {
             return .init(
                 userId: "test_auth_userid_\(loginMethod)_1",
                 nickname: "test_auth_nickname_\(loginMethod)_🅾️",
-                userAuthority: .petOwner
+                userAuthority: .petParent
             )
         }
     )

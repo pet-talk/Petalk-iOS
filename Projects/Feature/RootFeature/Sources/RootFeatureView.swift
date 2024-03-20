@@ -3,8 +3,9 @@ import SwiftUI
 import ComposableArchitecture
 
 import DesignSystem
+import SplashFeature
 import OnboardingFeature
-import PetOwnerMainTabFeature
+import PetParentMainTabFeature
 import VetMainTabFeature
 
 // MARK: - View
@@ -17,34 +18,44 @@ public struct RootFeatureView: View {
     }
     
     public var body: some View {
-        switch store.case {
-        case .onboarding:
-            if let store = store.scope(
-                state: \.onboarding,
-                action: \.onboarding
-            ) {
-                NavigationStack {
-                    OnboardingFeatureView(store: store)
+        WithPerceptionTracking {
+            switch store.scene {
+            case .splash:
+                if let store = store.scope(
+                    state: \.scene.splash,
+                    action: \.scene.splash
+                ) {
+                    SplashFeatureView(store: store)
                 }
-            }
-            
-        case .petowner:
-            if let store = store.scope(
-                state: \.petowner,
-                action: \.petowner
-            ) {
-                NavigationStack {
-                    PetOwnerMainTabFeatureView(store: store)
+                
+            case .onboarding:
+                if let store = store.scope(
+                    state: \.scene.onboarding,
+                    action: \.scene.onboarding
+                ) {
+                    NavigationStack {
+                        OnboardingFeatureView(store: store)
+                    }
                 }
-            }
-            
-        case .vet:
-            if let store = store.scope(
-                state: \.vet,
-                action: \.vet
-            ) {
-                NavigationStack {
-                    VetMainTabFeatureView(store: store)
+                
+            case .petParent:
+                if let store = store.scope(
+                    state: \.scene.petParent,
+                    action: \.scene.petParent
+                ) {
+                    NavigationStack {
+                        PetParentMainTabFeatureView(store: store)
+                    }
+                }
+                
+            case .vet:
+                if let store = store.scope(
+                    state: \.scene.vet,
+                    action: \.scene.vet
+                ) {
+                    NavigationStack {
+                        VetMainTabFeatureView(store: store)
+                    }
                 }
             }
         }

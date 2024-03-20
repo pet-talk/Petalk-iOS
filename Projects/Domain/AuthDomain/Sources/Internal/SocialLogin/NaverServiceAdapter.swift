@@ -85,7 +85,7 @@ final class NaverServiceAdapter: NSObject, LoginService {
             NaverLoginAPI.me(accessToken)
         )
         let response = loginResponse.response
-        let user = response.toDomain(authority: .petOwner)
+        let user = response.toDomain(authority: .petParent)
         
         return user
     }
