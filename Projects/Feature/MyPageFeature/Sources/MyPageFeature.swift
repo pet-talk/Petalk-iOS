@@ -1,5 +1,7 @@
 import ComposableArchitecture
 
+import UserDefault
+
 @Reducer
 public struct MyPageFeature {
     @ObservableState
@@ -30,6 +32,7 @@ public struct MyPageFeature {
         Reduce { state, action in
             switch action {
             case .view(.logoutButtonTapped):
+                UserDefaultClient.deleteLoggedInInfo()
                 return .send(.delegate(.didLogout))
                 
             case .delegate:

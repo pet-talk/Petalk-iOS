@@ -13,52 +13,37 @@ public struct SplashFeature {
 
     public enum Action {
         case onAppear
-        case delegate(Delegate)
-        
-        public enum Delegate {
-            case login
-        }
+        case loginResponse(Result<User, Error>)
     }
-
+    
+    @Dependency(\.authClient) var authClient
+    
     public init() {}
 
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                let userAuthority = loggedInUserAuthority()
+                guard 
+                    let loggedInMethod = UserDefaultClient.loggedInMethod,
+                    let loginMethod = SocialLoginMethod(rawValue: loggedInMethod) 
+                else {
+                    struct LoggedInMethodNotFoundWhenSplashOnAppear: Error {}
+                    return .send(.loginResponse(.failure(LoggedInMethodNotFoundWhenSplashOnAppear())))
+                }
                 
-                return .send(.delegate(.login))
+                return .run { send in
+                    await send(.loginResponse(
+                        Result {
+                            let user = try await authClient.requestLogin(loginMethod: loginMethod)
+                            return user
+                        }
+                    ))
+                }
                 
-            case .delegate:
+            case .loginResponse:
                 return .none
             }
         }
-    }
-}
-
-private extension SplashFeature {
-    private func loggedInUserAuthority() -> User.Authority? {
-        guard validateLoggedInUser() else { return nil }
-        guard
-            let loggedInUserAuthority = UserDefaultClient.userAuthority,
-            let userAuthority = User.Authority(rawValue: loggedInUserAuthority)
-        else {
-            return nil
-        }
-        
-        return userAuthority
-    }
-    
-    private func validateLoggedInUser() -> Bool {
-        guard
-            let loggedInUserId = UserDefaultClient.userId, !loggedInUserId.isEmpty,
-            let loggedInUserNickname = UserDefaultClient.nickname, !loggedInUserNickname.isEmpty,
-            let loggedInUserAuthority = UserDefaultClient.userAuthority, !loggedInUserAuthority.isEmpty
-        else {
-            return false
-        }
-        
-        return true
     }
 }

@@ -61,18 +61,18 @@ public struct RootFeature {
         
         Reduce { state, action in
             switch action {
-            case .scene(.splash(.delegate(.login))):
-                state.scene = .petParent(.initialState)
-                
-                return .none
-                
-            case .scene(.onboarding(.loginResponse(.success(let user)))):
+            case .scene(.splash(.loginResponse(.success(let user)))),
+                    .scene(.onboarding(.loginResponse(.success(let user)))):
                 switch user.userAuthority {
                 case .petParent:
                     state.scene = .petParent(.initialState)
                 case .vet:
                     state.scene = .vet(.initialState)
                 }
+                return .none
+                
+            case .scene(.splash(.loginResponse(.failure))):
+                state.scene = .onboarding(.init())
                 return .none
                 
             case .scene(.petParent(.delegate(.didLogout))):

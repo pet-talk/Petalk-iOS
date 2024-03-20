@@ -1,7 +1,6 @@
 import Foundation
 
 import Dependencies
-import DependenciesMacros
 
 import Networking
 
@@ -12,13 +11,20 @@ extension DependencyValues {
     }
 }
 
-@DependencyClient
 public struct AuthClient: Sendable {
     public var socialLogin: SocialLoginClient
-    public var authenticate: @Sendable (
+    
+    private var authenticate: @Sendable (
         _ loginMethod: SocialLoginMethod,
         _ accessToken: String
     ) async throws -> User
+    
+    public func requestLogin(loginMethod: SocialLoginMethod) async throws -> User {
+        let signIn = try await socialLogin.requestLogin(loginMethod)
+        let user = try await authenticate(loginMethod, signIn.accessToken)
+        
+        return user
+    }
 }
 
 extension AuthClient: TestDependencyKey {

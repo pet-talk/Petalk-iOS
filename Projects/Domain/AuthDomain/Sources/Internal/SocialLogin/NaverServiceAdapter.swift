@@ -10,21 +10,13 @@ import Logger
 extension SocialLoginMethod {
     fileprivate static let naverClientKey: String = Bundle.main.string(for: "NaverClientKey")
     fileprivate static let naverClientSecret: String = Bundle.main.string(for: "NaverClientSecret")
-    
-    fileprivate var urlScheme: String {
-        switch self {
-        case .naver:
-            #if DEV
-            return "naverlogin"
-            #elseif STAGE
-            return "naverlogin"
-            #else
-            return "naverlogin"
-            #endif
-        case .kakao, .apple:
-            return ""
-        }
-    }
+    #if DEV
+    fileprivate static let naverLoginUrlSceheme: String = "naverlogin"
+    #elseif STAGE
+    fileprivate static let naverLoginUrlSceheme: String = "naverlogin"
+    #else
+    fileprivate static let naverLoginUrlSceheme: String = "naverlogin"
+    #endif
 }
 
 final class NaverServiceAdapter: NSObject, LoginService {
@@ -45,7 +37,7 @@ final class NaverServiceAdapter: NSObject, LoginService {
         // 인증 화면을 아이폰의 세로모드에서만 적용
         instance.isOnlyPortraitSupportedInIphone()
         
-        instance.serviceUrlScheme = SocialLoginMethod.naver.urlScheme
+        instance.serviceUrlScheme = SocialLoginMethod.naverLoginUrlSceheme
         instance.consumerKey = SocialLoginMethod.naverClientKey
         instance.consumerSecret = SocialLoginMethod.naverClientSecret
         instance.appName = Bundle.main.string(for: "CFBundleName")

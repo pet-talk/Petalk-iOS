@@ -10,7 +10,8 @@ let project = Project.module(
             spec: .init(
                 resources: ["Resources/**"],
                 dependencies: [
-                .feature(target: .BaseFeature)
+                .feature(target: .BaseFeature),
+                .domain(target: .AuthDomain),
             ])
          ),
         .demo(module: .feature(.SplashFeature), dependencies: [

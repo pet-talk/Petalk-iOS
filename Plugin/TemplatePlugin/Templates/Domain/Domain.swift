@@ -9,7 +9,6 @@ private let clientContent: String = """
 import Foundation
 
 import Dependencies
-import DependenciesMacros
 
 extension DependencyValues {
     public var \(clientName): \(clientName) {

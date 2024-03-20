@@ -10,7 +10,6 @@ let project = Project.module(
             product: .framework,
             dependencies: [
                 .SPM.ComposableArchitecture,
-                .SPM.TCACoordinators,
                 .shared(target: .FoundationUtility),
                 .shared(target: .CombineUtility),
                 .shared(target: .SwiftUIUtility),

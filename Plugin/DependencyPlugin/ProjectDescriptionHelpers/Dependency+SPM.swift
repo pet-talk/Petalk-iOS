@@ -5,7 +5,6 @@ public typealias DEP = TargetDependency
 public extension DEP {
     struct SPM {
         public static let ComposableArchitecture: DEP = .external(name: "ComposableArchitecture", condition: nil)
-        public static let TCACoordinators: DEP = .external(name: "TCACoordinators", condition: nil)
         public static let KakaoSDK: DEP = .external(name: "KakaoSDK", condition: nil)
         public static let NaverThirdPartyLogin: DEP = .external(name: "NaverThirdPartyLogin", condition: nil)
         public static let SDWebImageSwiftUI: DEP = .external(name: "SDWebImageSwiftUI", condition: nil)
@@ -16,7 +15,6 @@ public extension DEP {
 public extension Package {
     enum SPM: CaseIterable {
         case ComposableArchitecture
-        case TCACoordinators
         case KakaoSDK
         case NaverThirdPartyLogin
         case SDWebImageSwiftUI
@@ -30,11 +28,6 @@ public extension Package {
                     requirement: .upToNextMajor(
                         from: "1.9.0"
                     )
-                )
-            case .TCACoordinators:
-                return .remote(
-                    url: "https://github.com/SH-OH/TCACoordinators.git",
-                    requirement: .branch("main")
                 )
             case .KakaoSDK:
                 return .remote(

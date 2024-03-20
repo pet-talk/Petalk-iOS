@@ -1,9 +1,7 @@
 import Foundation
 
 import Dependencies
-import DependenciesMacros
 
-@DependencyClient
 public struct SocialLoginClient: Sendable {
     public var requestLogin: @Sendable (_ loginMethod: SocialLoginMethod) async throws -> SignIn
     public var requestMe: @Sendable () async throws -> User

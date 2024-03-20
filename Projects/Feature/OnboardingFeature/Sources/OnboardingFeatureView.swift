@@ -34,7 +34,8 @@ public struct OnboardingFeatureView: View {
     
     private func loginButton(loginMethod: SocialLoginMethod) -> some View {
         Button {
-            send(.loginButtonTapped(loginMethod))
+            store.loginMethod = loginMethod
+            send(.loginButtonTapped)
         } label: {
             Image(loginMethod.icon)
                 .frame(width: 20, height: 20, alignment: .top)

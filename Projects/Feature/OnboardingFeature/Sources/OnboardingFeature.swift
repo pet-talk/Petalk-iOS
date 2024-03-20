@@ -26,11 +26,10 @@ public struct OnboardingFeature {
     
     public enum View: BindableAction {
         case binding(BindingAction<State>)
-        case loginButtonTapped(SocialLoginMethod)
+        case loginButtonTapped
     }
     
     @Dependency(\.authClient) var authClient
-    @Dependency(\.authClient.socialLogin) var socialLoginClient
     
     public init() {}
     
@@ -41,14 +40,14 @@ public struct OnboardingFeature {
             case .view(.binding):
                 return .none
                 
-            case let .view(.loginButtonTapped(loginMethod)):
+            case .view(.loginButtonTapped):
                 state.isLoading = true
-                return .run { send in
+                return .run { [loginMethod = state.loginMethod] send in
+                    guard let loginMethod else { return }
+                    
                     await send(.loginResponse(
                         Result {
-                            let signIn = try await socialLoginClient.requestLogin(loginMethod)
-                            let user = try await authClient.authenticate(loginMethod: loginMethod, accessToken: signIn.accessToken)
-                            
+                            let user = try await authClient.requestLogin(loginMethod: loginMethod)
                             return user
                         }
                     ))
@@ -58,9 +57,8 @@ public struct OnboardingFeature {
                 state.isLoading = false
                 Log.debug(user)
                 
-                UserDefaultClient.userId = user.userId
-                UserDefaultClient.nickname = user.nickname
-                UserDefaultClient.userAuthority = user.userAuthority.rawValue
+                UserDefaultClient.loggedInUserAuthority = user.userAuthority.rawValue
+                UserDefaultClient.loggedInMethod = state.loginMethod?.rawValue
                 
                 return .none
                 
@@ -69,7 +67,7 @@ public struct OnboardingFeature {
                 state.isLoading = false
                 Log.error(error)
                 
-                UserDefaultClient.deleteUserInfo()
+                UserDefaultClient.deleteLoggedInInfo()
                 
                 return .none
                 

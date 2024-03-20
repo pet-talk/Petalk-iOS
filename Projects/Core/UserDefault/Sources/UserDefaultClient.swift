@@ -1,24 +1,19 @@
 import Foundation
 
 public struct UserDefaultClient {
-    enum Key: String {
-        case userId
-        case nickname
-        case userAuthority
+    public enum Key: String {
+        case loggedInUserAuthority
+        case loggedInMethod
     }
     
-    @UserDefault(key: Key.userId.rawValue)
-    public static var userId: String?
+    @UserDefault(key: .loggedInUserAuthority)
+    public static var loggedInUserAuthority: String?
     
-    @UserDefault(key: Key.nickname.rawValue)
-    public static var nickname: String?
+    @UserDefault(key: .loggedInMethod)
+    public static var loggedInMethod: String?
     
-    @UserDefault(key: Key.userAuthority.rawValue)
-    public static var userAuthority: String?
-    
-    public static func deleteUserInfo() {
-        userId = nil
-        nickname = nil
-        userAuthority = nil
+    public static func deleteLoggedInInfo() {
+        loggedInUserAuthority = nil
+        loggedInMethod = nil
     }
 }

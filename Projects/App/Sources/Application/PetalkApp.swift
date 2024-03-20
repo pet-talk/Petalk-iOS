@@ -19,12 +19,11 @@ struct PetalkApp: App {
                         RootFeature()
                     }, withDependencies: {
                         $0.authClient = .testValue
-                        $0.authClient.socialLogin = .testValue
                     }
                 )
             )
             .onOpenURL(perform: { url in
-                socialLogin.openURL(url: url)
+                socialLogin.openURL(url)
             })
         }
     }
